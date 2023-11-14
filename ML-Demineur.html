@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Démineur</title>
+</head>
+<body>
+
+    <div id="timer"></div>
+    <script type="text/javascript">
+        let temps = 100;
+        const timerElement = document.getElementById("timer");
+        function Red_Temps(){
+            timerElement.innerText = temps;
+            let minutes = parseInt(temps / 60, 10)
+            let secondes = parseInt(temps % 60, 10)
+            temps = temps <= 0 ? 0 : temps - 1;
+        }
+        setInterval(Red_Temps,1000); //1000 c'est 1s, en gros ça fait red_temps toutes les 1s
+
+    </script>
+</body>
+
+</html>
