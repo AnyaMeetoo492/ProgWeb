@@ -52,3 +52,23 @@ Déroulement :
 - facultatif 
     - Leaderboard
     - click sur chiffre = casse un bout 
+
+Taches :
+
+- Matrice bombes / chiffre(chiffre)
+    - case valeur 
+        -1 bombes
+        chiffres representant bombes à côté
+        vides
+- css sur chaque case 
+    - cache case tant que pas cliquer
+- drapeau (indicateur)
+
+
+mission
+
+1. matrice random
+4. fonction chiffres
+
+2. tableau css, js
+3. Compteur de drapeau + affichage drapeau + click gauche
