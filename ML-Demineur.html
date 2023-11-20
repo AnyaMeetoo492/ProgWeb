@@ -27,7 +27,7 @@
                 if(table[i][j] == 9){
                     // Au-dessus de la bombe (en i-1)
                     if(i-1 > 0){ // il ne faut pas que la colonne d'avant soit inférieur à 0
-                        if(table[i-1][j-1] < 9){ //inférieur à 9 : 9 max d'une case
+                        if(table[i-1][j-1] < 9){ //9 bombes max autout d'une case
                                     table[i-1][j-1] = table[i-1][j-1] + 1;
                         }
                         if(table[i-1][j] < 9){
