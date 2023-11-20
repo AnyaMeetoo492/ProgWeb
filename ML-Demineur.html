@@ -26,8 +26,8 @@
             for(let j = 0; j < maxColonne; j++){ //maxColonne est le num de la dernière colonne
                 if(table[i][j] == 9){
                     // Au-dessus de la bombe (en i-1)
-                    if(i-1 > 0){
-                        if(table[i-1][j-1] < 9){
+                    if(i-1 > 0){ // il ne faut pas que la colonne d'avant soit inférieur à 0
+                        if(table[i-1][j-1] < 9){ //inférieur à 9 : 9 max d'une case
                                     table[i-1][j-1] = table[i-1][j-1] + 1;
                         }
                         if(table[i-1][j] < 9){
@@ -50,7 +50,7 @@
                         }
                     }
                     // Sous la bombe (en i + 1)
-                    if(i+1 < maxLigne){
+                    if(i+1 < maxLigne){ // il ne faut pas que la colonne d'après soit supérieur au max des colonnes
                         if(j-1 >= 0){
                             if(table[i+1][j-1] < 9){
                                 table[i+1][j-1] = table[i+1][j-1] + 1;
