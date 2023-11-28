@@ -18,6 +18,60 @@
         setInterval(Red_Temps,1000); //1000 c'est 1s, en gros ça fait red_temps toutes les 1s
 
     </script>
+
+    <!-- petit prog sans celui d'Anya, donc idk how to faire-->
+    <script>
+    function Chiffres(maxLigne, maxColonne){
+        for(let i = 0; i < maxLigne; i++){ //maxLigne est le num de la dernière ligne 
+            for(let j = 0; j < maxColonne; j++){ //maxColonne est le num de la dernière colonne
+                if(table[i][j] == 9){
+                    // Au-dessus de la bombe (en i-1)
+                    if(i-1 > 0){ // il ne faut pas que la colonne d'avant soit inférieur à 0
+                        if(table[i-1][j-1] < 9){ //9 bombes max autout d'une case
+                                    table[i-1][j-1] = table[i-1][j-1] + 1;
+                        }
+                        if(table[i-1][j] < 9){
+                            table[i-1][j] = table[i-1][j] + 1;
+                        }
+                        if(j+1 < maxColonne){
+                            if(table[i-1][j+1] < 9){
+                                table[i-1][j+1] = table[i-1][j+1] + 1;
+                            }
+                        }
+                    }
+                    // Des 2 côtés de la bombe (en i)
+                    if(table[i][j-1] < 9){
+                        table[i][j-1] = table[i][j-1] + 1;
+                    }
+                    //ici mettre pour la bombe???
+                    if(j+1 < maxColonne){
+                        if(table[i][j+1] < 9){
+                            table[i][j+1] = table[i][j+1] + 1;
+                        }
+                    }
+                    // Sous la bombe (en i + 1)
+                    if(i+1 < maxLigne){ // il ne faut pas que la colonne d'après soit supérieur au max des colonnes
+                        if(j-1 >= 0){
+                            if(table[i+1][j-1] < 9){
+                                table[i+1][j-1] = table[i+1][j-1] + 1;
+                            }
+                        }
+                        if(table[i+1][j] < 9){
+                            table[i+1][j] = table[i+1][j] + 1;
+                        }
+                        if(j+1 < maxColonne){
+                            if(table[i+1][j+1] < 9){
+                                table[i+1][j+1] = table[i+1][j+1] + 1;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return table;
+    }
+</script>
+
 </body>
 
 </html>
