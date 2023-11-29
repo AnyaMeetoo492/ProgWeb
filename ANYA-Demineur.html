@@ -10,7 +10,13 @@
 
     <h1>Démineur</h1>
 
-            <!-- Choisissez le mode:
+        <label for="mode">Choisissez le mode:</label>
+        <select name="mode" id="mode" onchange="modeChoisi(this.value)">
+            <option value="Easy" >Easy</option>
+            <option value="Medium">Medium</option>
+            <option value="Hard">Hard</option>
+        </select>
+            <!-- 
         <ul style="list-style-type:none;">
             <li><input type="radio" id="Easy" name="mode">Easy</li>
             <li><input type="radio" id="Medium" name="mode">Medium</li>

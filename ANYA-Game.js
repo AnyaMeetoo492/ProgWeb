@@ -1,3 +1,5 @@
+let taille = 0;
+let nbbombe = 0;
 
 //affiche le tableau a l'ecran
 function afficheTab(taille, table, matrice){
@@ -29,11 +31,32 @@ function afficheTab(taille, table, matrice){
     }  
 }
 
+// Initialise le mode = easy/medium/hard 
+// donne la taille du tableau et le nombre de drapeau
+function modeChoisi(mode){
+
+    if (mode == "Easy"){
+        taille = 10;
+        nbbombe = 10;
+    }
+    else if (mode == "Medium"){
+        taille = 14;
+        nbbombe = 40;
+    }
+    else {
+        taille = 20;
+        nbbombe = 99;
+    }
+    return (taille,nbbombe);
+
+}
+
 // Initialise une matrice avec bombes et chiffres et la renvoit 
 // Modifie le tableau pour le début de partie
 function initTable(){
-    let taille = 10;
-    let nbbombe = 10;
+    // let taille = 10;
+    // let nbbombe = 10;
+    const mode = document.getElementById("mode");
     const table = document.getElementById("tableNonCache"); // tableau affiché sur écran
 
     let matriceBombe = []; // matrice des bombes
@@ -60,7 +83,7 @@ function initTable(){
 
     }
 
-    // taille,nbdrapeau = modeChoisi(); // taille du tableau 
+    // taille,nbbombe = modeChoisi(); // taille du tableau 
 
     let matrice = Chiffres(matriceBombe, taille, taille)
     afficheTab(taille, table, matrice);
