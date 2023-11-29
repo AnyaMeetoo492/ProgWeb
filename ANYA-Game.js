@@ -148,50 +148,6 @@ function Chiffres(matrice, maxLigne, maxColonne){
     }
     return matrice;
 }
-    
-
-
-            //     if(i-1 >= 0){ // il ne faut pas que la colonne d'avant soit inférieur à 0
-            //         if(matrice[i-1][j-1] < 9){ //9 bombes max autour d'une case
-            //             matrice[i-1][j-1] = matrice[i-1][j-1] + 1;
-            //         }
-            //         if(matrice[i-1][j] < 9){
-            //             matrice[i-1][j] = matrice[i-1][j] + 1;
-            //         }
-            //         if(j+1 < maxColonne){
-            //             if(matrice[i-1][j+1] < 9){
-            //                 matrice[i-1][j+1] = matrice[i-1][j+1] + 1;
-            //             }
-            //         }
-            //     }
-            // // Des 2 côtés de la bombe (en i)
-            //     if(j-1 >= 0){
-            //         if(matrice[i][j-1] < 9){
-            //             matrice[i][j-1] = matrice[i][j-1] + 1;
-            //         }
-            //     }
-            //     if(j+1 < maxColonne){
-            //         if(matrice[i][j+1] < 9){
-            //             matrice[i][j+1] = matrice[i][j+1] + 1;
-            //         }
-            //     }
-            //     // Sous la bombe (en i + 1)
-            //     if(i+1 < maxLigne){ // il ne faut pas que la colonne d'après soit supérieur au max des lignes
-            //         if(j-1 >= 0){
-            //             if(matrice[i+1][j-1] < 9){
-            //                 matrice[i+1][j-1] = matrice[i+1][j-1] + 1;
-            //             }
-            //         }
-            //         if(matrice[i+1][j] < 9){
-            //             matrice[i+1][j] = matrice[i+1][j] + 1;
-            //         }
-            //         if(j+1 < maxColonne){
-            //             if(matrice[i+1][j+1] < 9){
-            //                 matrice[i+1][j+1] = matrice[i+1][j+1] + 1;
-            //             }
-            //         }
-            //     }
-   
 
 // Lance le jeu
 // fini le jeu si on trouve toutes les bombes ou user a clique sur une bombe
