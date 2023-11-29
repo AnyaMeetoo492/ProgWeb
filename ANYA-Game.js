@@ -33,7 +33,8 @@ function afficheTab(taille, table, matrice){
 
 // Initialise le mode = easy/medium/hard 
 // donne la taille du tableau et le nombre de drapeau
-function modeChoisi(mode){
+function modeChoisi(){
+    let mode = document.getElementById("mode").value;
 
     if (mode == "Easy"){
         taille = 10;
@@ -56,7 +57,6 @@ function modeChoisi(mode){
 function initTable(){
     // let taille = 10;
     // let nbbombe = 10;
-    const mode = document.getElementById("mode");
     const table = document.getElementById("tableNonCache"); // tableau affiché sur écran
 
     let matriceBombe = []; // matrice des bombes

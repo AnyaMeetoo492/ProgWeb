@@ -3,6 +3,7 @@
 
 <head>
     <title>Demineur</title>
+    <link rel="stylesheet" href="ANYA-styles.css">
     <script type="text/javascript" src="ANYA-Game.js"></script>
 </head>
 
@@ -11,18 +12,13 @@
     <h1>Démineur</h1>
 
         <label for="mode">Choisissez le mode:</label>
-        <select name="mode" id="mode" onchange="modeChoisi(this.value)">
-            <option value="Easy" >Easy</option>
+        <select name="mode" id="mode">
+            <option value="Easy">Easy</option>
             <option value="Medium">Medium</option>
             <option value="Hard">Hard</option>
         </select>
-            <!-- 
-        <ul style="list-style-type:none;">
-            <li><input type="radio" id="Easy" name="mode">Easy</li>
-            <li><input type="radio" id="Medium" name="mode">Medium</li>
-            <li><input type="radio" id="Hard" name="mode">Hard</li>
-        </ul> -->
-        <button type="button" id="Startbutton" onclick="initTable()">Start</button>
+    
+        <button type="button" id="Startbutton" onclick="modeChoisi(); initTable()">Start</button>
 
         <!-- <h2 id="nbdrapeau">Drapeaux restant: 0</h2> -->
     
