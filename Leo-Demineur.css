@@ -14,6 +14,12 @@ table{
   width: 6em
 }
 
+#buttonhide{
+  width  : 50px;
+  height : 50px;
+  background : green;
+}
+
 #buttonbombe{
     width  : 50px;
     height : 50px;
