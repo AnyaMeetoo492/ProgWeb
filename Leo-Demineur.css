@@ -1,0 +1,11 @@
+:root {
+    --taille : 10;
+    --nbbombe : 10;
+
+}
+
+.bombe {
+    width  : 50px;
+    height : 50px;
+    background : red;
+  }
