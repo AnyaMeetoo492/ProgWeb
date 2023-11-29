@@ -1,0 +1,38 @@
+:root {
+    --taille_case : 500/taille;
+  }
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold;
+  text-align: center;
+}
+
+table{
+  margin-left: auto;
+  margin-right: auto;
+  width: 6em
+}
+
+#buttonhide{
+  width  : 50px;
+  height : 50px;
+  background : green;
+}
+
+#buttonbombe{
+    width  : 50px;
+    height : 50px;
+    background : red;
+  }
+#buttonchiffre{
+    width  : 50px;
+    height : 50px;
+    background : green;
+  }
+
+#buttonrien{
+    width  : 50px;
+    height : 50px;
+    background : grey;
+}
