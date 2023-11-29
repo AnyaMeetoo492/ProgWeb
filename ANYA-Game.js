@@ -91,7 +91,12 @@ function initTable(){
 }
 
 //decompteur
+$("#StartButton").click(function(){
+    resetdecompteur();
+  });
+
 function decompteur(){
+    let reset = false; 
     let temps = 100;
         const timerElement = document.getElementById("timer");
         function Red_Temps(){
@@ -102,6 +107,13 @@ function decompteur(){
         }
         setInterval(Red_Temps,1000); //1000 c'est 1s, en gros ça fait red_temps toutes les 1s
 }
+function resetdecompteur(){
+    if(reset===false)
+    {
+      clearInterval(timer);
+      reset = true;
+    }
+} 
 
 /////////////////PROBLEMEEEEEEEEEE
 function Chiffres(matrice, maxLigne, maxColonne){
