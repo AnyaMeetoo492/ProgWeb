@@ -89,29 +89,28 @@ function initTable(){
 }
 
 //decompteur
-// $("#StartButton").click(function(){
-//     resetdecompteur();
-//   });
+$("#StartButton").click(function(){
+    resetdecompteur();
+  });
 
 function decompteur(){
-    let reset = false; 
     let temps = 100;
-        const timerElement = document.getElementById("timer");
-        function Red_Temps(){
-            timerElement.innerText = temps;
-            let minutes = parseInt(temps / 60, 10)
-            let secondes = parseInt(temps % 60, 10)
-            temps = temps <= 0 ? 0 : temps - 1;
+    const timerElement = document.getElementById("timer");
+    function Red_Temps(){
+        timerElement.innerText = temps;
+        let minutes = parseInt(temps / 60, 10)
+        let secondes = parseInt(temps % 60, 10)
+        temps = temps <= 0 ? 0 : temps - 1;
+        console.log('idle');
         }
-        setInterval(Red_Temps,1000); //1000 c'est 1s, en gros ça fait red_temps toutes les 1s
+    decompte = setInterval(Red_Temps,1000);//1000 c'est 1s, en gros ça fait red_temps toutes les 1s
 }
-function resetdecompteur(){
-    if(reset===false)
-    {
-      clearInterval(timer);
-      reset = true;
-    }
-} 
+function ResetDecompte(){
+    clearInterval(decompte);
+    decompteur();
+}
+
+document.getElementById("StartButton").addEventListener("click", ResetDecompte());
 
 /////////////////PROBLEMEEEEEEEEEE
 function Chiffres(matrice, maxLigne, maxColonne){

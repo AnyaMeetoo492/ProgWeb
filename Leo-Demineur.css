@@ -26,6 +26,10 @@ table{
 #buttonhide:host{
     width  : 50px;
     height : 50px;
-    background : blue;
-    color : white;
+    background : red;
+  }
+#buttonchiffre{
+    width  : 50px;
+    height : 50px;
+    background : green;
   }
