@@ -14,13 +14,13 @@ function afficheTab(taille, table, matrice){
             const Cell = document.createElement("TD");
             // ajoute l'élement nécéssaire à chaque cellule du tableau
 
-            if (matrice[i][j] == -1){
+            if (matrice[i][j] == -1){ // bombe
                 Cell.innerHTML = "<button type='button' name='button' id='buttonbombe' style='background-color: red' onclick='jeu(1)'>"+matrice[i][j]+"</button>"; 
             }
-            else if (matrice[i][j]>0){
+            else if (matrice[i][j]>0){ //chiffre
                 Cell.innerHTML = "<button type='button' name='button' id='buttonchiffre' style='background-color: blue'  onclick='jeu(0)'>"+matrice[i][j]+"</button>";
             }
-            else {
+            else { // autre
                 Cell.innerHTML = "<button type='button  name='button' id='buttonrien' onclick='jeu(0)'>"+matrice[i][j]+"</button>";
             }
             Ligne.appendChild(Cell);
@@ -90,6 +90,18 @@ function initTable(){
      
 }
 
+//decompteur
+function decompteur(){
+    let temps = 100;
+        const timerElement = document.getElementById("timer");
+        function Red_Temps(){
+            timerElement.innerText = temps;
+            let minutes = parseInt(temps / 60, 10)
+            let secondes = parseInt(temps % 60, 10)
+            temps = temps <= 0 ? 0 : temps - 1;
+        }
+        setInterval(Red_Temps,1000); //1000 c'est 1s, en gros ça fait red_temps toutes les 1s
+}
 
 /////////////////PROBLEMEEEEEEEEEE
 function Chiffres(matrice, maxLigne, maxColonne){
@@ -170,6 +182,8 @@ function Chiffres(matrice, maxLigne, maxColonne){
             //     }
    
 
+// Lance le jeu
+// fini le jeu si on trouve toutes les bombes ou user a clique sur une bombe
 function jeu(GameOver){
     if (GameOver){
         console.log("OVER");
