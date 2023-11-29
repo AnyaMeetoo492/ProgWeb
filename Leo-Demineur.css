@@ -1,5 +1,11 @@
 :root {
     --taille_case : 500/taille;
+  }
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold;
+  text-align: center;
 }
 
 #buttonbombe{
