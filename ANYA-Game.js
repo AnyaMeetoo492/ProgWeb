@@ -1,26 +1,33 @@
 
-// Initialise le mode = easy/medium/hard 
-// donne la taille du tableau et le nombre de drapeau
-// function modeChoisi(){
-//     const mode = document.getElementById("mode").value;
-//     let taille = 0;
-//     let nbdrapeau = 0;
+//affiche le tableau a l'ecran
+function afficheTab(taille, table, matrice){
+    table.innerHTML = ""; // efface le tableau pour mettre des nouvelles valeurs
+    
+    // affiche le tableau
+    for (let i=0; i<taille; i++){ // pour chaque ligne 
+    
+        const Ligne = document.createElement("TR"); 
 
-//     if (mode == "easy"){
-//         taille = 10;
-//         nbdrapeau = 10;
-//     }
-//     else if (mode == "medium"){
-//         taille = 14;
-//         nbdrapeau = 40;
-//     }
-//     else {
-//         taille = 20;
-//         nbdrapeau = 99;
-//     }
-//     return (taille,nbdrapeau);
+        for (let j=0; j<taille; j++){ // pour chaque colonne
+            const Cell = document.createElement("TD");
+            // ajoute l'élement nécéssaire à chaque cellule du tableau
 
-// }
+            if (matrice[i][j] == -1){
+                Cell.innerHTML = "<button type='button' style='background-color: red'>"+matrice[i][j]+"</button>"; 
+            }
+            else if (matrice[i][j]>0){
+                Cell.innerHTML = "<button type='button' style='background-color: blue'>"+matrice[i][j]+"</button>";
+            }
+            else {
+                Cell.innerHTML = "<button type='button'>"+matrice[i][j]+"</button>";
+            }
+            Ligne.appendChild(Cell);
+            
+        }
+        
+        table.appendChild(Ligne);
+    }  
+}
 
 // Initialise une matrice avec bombes et chiffres et la renvoit 
 // Modifie le tableau pour le début de partie
@@ -55,21 +62,57 @@ function initTable(){
 
     // taille,nbdrapeau = modeChoisi(); // taille du tableau 
 
-    table.innerHTML = ""; // efface le tableau pour mettre des nouvelles valeurs
-    
-    // affiche le tableau
-    for (let i=0; i<taille; i++){ // pour chaque ligne 
-    
-        const Ligne = document.createElement("TR"); 
+    let matrice = Chiffres(matriceBombe, taille, taille)
+    afficheTab(taille, table, matrice);
+     
+}
 
-        for (let j=0; j<taille; j++){ // pour chaque colonne
-            const Cell = document.createElement("TD");
-            // ajoute l'élement nécéssaire à chaque cellule du tableau
-            Cell.innerHTML = "<button type='button'>"+matriceBombe[i][j]+"</button>"; 
-            Ligne.appendChild(Cell);
-            
+function Chiffres(matrice, maxLigne, maxColonne){
+    for(let i = 0; i < maxLigne; i++){ //maxLigne est le num de la dernière ligne 
+        for(let j = 0; j < maxColonne; j++){ //maxColonne est le num de la dernière colonne
+            if(matrice[i][j] == -1){
+                // Au-dessus de la bombe (en i-1)
+                if(i-1 >= 0){ // il ne faut pas que la colonne d'avant soit inférieur à 0
+                    if(matrice[i-1][j-1] < 9){ //9 bombes max autout d'une case
+                                matrice[i-1][j-1] = matrice[i-1][j-1] + 1;
+                    }
+                    if(matrice[i-1][j] < 9){
+                        matrice[i-1][j] = matrice[i-1][j] + 1;
+                    }
+                    if(j+1 < maxColonne){
+                        if(matrice[i-1][j+1] < 9){
+                            matrice[i-1][j+1] = matrice[i-1][j+1] + 1;
+                        }
+                    }
+                }
+                // Des 2 côtés de la bombe (en i)
+                if(matrice[i][j-1] < 9){
+                    matrice[i][j-1] = matrice[i][j-1] + 1;
+                }
+                //ici mettre pour la bombe???
+                if(j+1 < maxColonne){
+                    if(matrice[i][j+1] < 9){
+                        matrice[i][j+1] = matrice[i][j+1] + 1;
+                    }
+                }
+                // Sous la bombe (en i + 1)
+                if(i+1 < maxLigne){ // il ne faut pas que la colonne d'après soit supérieur au max des colonnes
+                    if(j-1 >= 0){
+                        if(matrice[i+1][j-1] < 9){
+                            matrice[i+1][j-1] = matrice[i+1][j-1] + 1;
+                        }
+                    }
+                    if(matrice[i+1][j] < 9){
+                        matrice[i+1][j] = matrice[i+1][j] + 1;
+                    }
+                    if(j+1 < maxColonne){
+                        if(matrice[i+1][j+1] < 9){
+                            matrice[i+1][j+1] = matrice[i+1][j+1] + 1;
+                        }
+                    }
+                }
+            }
         }
-        
-        table.appendChild(Ligne);
-    }   
+    }
+    return matrice;
 }
