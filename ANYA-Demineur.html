@@ -18,13 +18,20 @@
             <option value="Hard">Hard</option>
         </select>
     
-        <button type="button" id="Startbutton" onclick="modeChoisi(); initTable()">Start</button>
+        <button type="button" id="Startbutton" onclick="modeChoisi(); initTable(); decompteur()">Start</button>
 
         <!-- <h2 id="nbdrapeau">Drapeaux restant: 0</h2> -->
     
+    <div>
+        Temps restant : <span id="timer"></span>
+    </div>
+    <div>
+        🚩 : <span id="flag">0</span>
+    </div>
+
     <table border="1" id="tableNonCache">
     </table>
-
+    
     <script>jeu();</script>
     
 </body>
