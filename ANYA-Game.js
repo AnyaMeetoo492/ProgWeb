@@ -105,7 +105,6 @@ function decompteur(){
 
 /////////////////PROBLEMEEEEEEEEEE
 function Chiffres(matrice, maxLigne, maxColonne){
-    console.log(matrice);
     for(let i = 0; i < maxLigne; i++){ //maxLigne est le num de la dernière ligne 
         for(let j = 0; j < maxColonne; j++){ //maxColonne est le num de la dernière colonne
             if(matrice[i][j] == -1){
@@ -116,18 +115,30 @@ function Chiffres(matrice, maxLigne, maxColonne){
                 if (i-1 >= 0){
                     Ideb = i - 1;
                 }
+                else{
+                    Ideb = i;
+                }
                 if (i+1 < maxLigne){
                     Ifin = i + 1;
+                }
+                else{
+                    Ifin = i;
                 }
                 if (j-1 >= 0){
                     Jdeb = j - 1;
                 }
+                else{
+                    Jdeb = j;
+                }
                 if (j+1 < maxColonne){
                     Jfin = j + 1;
                 }
-                for(let l = Ideb; l<Ifin ; l++){
-                    for(let c = Jdeb; c<Jfin; c++){
-                        if(matrice[l][c] =! -1){
+                else{
+                    Jfin = j;
+                }
+                for(let l = Ideb; l<=Ifin ; l++){
+                    for(let c = Jdeb; c<=Jfin; c++){
+                        if(matrice[l][c]!=-1 && matrice[l][c]<9){
                             matrice[l][c] = matrice[l][c] + 1;
                         }
                     }
