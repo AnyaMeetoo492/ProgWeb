@@ -15,13 +15,13 @@ function afficheTab(taille, table, matrice){
             // ajoute l'élement nécéssaire à chaque cellule du tableau
 
             if (matrice[i][j] == -1){
-                Cell.innerHTML = "<button type='button' style='background-color: red'>"+matrice[i][j]+"</button>"; 
+                Cell.innerHTML = "<button type='button' name='button' id='buttonbombe' style='background-color: red' onclick='jeu(1)'>"+matrice[i][j]+"</button>"; 
             }
             else if (matrice[i][j]>0){
-                Cell.innerHTML = "<button type='button' style='background-color: blue'>"+matrice[i][j]+"</button>";
+                Cell.innerHTML = "<button type='button' name='button' id='buttonchiffre' style='background-color: blue'  onclick='jeu(0)'>"+matrice[i][j]+"</button>";
             }
             else {
-                Cell.innerHTML = "<button type='button'>"+matrice[i][j]+"</button>";
+                Cell.innerHTML = "<button type='button  name='button' id='buttonrien' onclick='jeu(0)'>"+matrice[i][j]+"</button>";
             }
             Ligne.appendChild(Cell);
             
@@ -140,4 +140,13 @@ function Chiffres(matrice, maxLigne, maxColonne){
         }
     }
     return matrice;
+}
+
+function jeu(GameOver){
+    if (GameOver){
+        console.log("OVER");
+    }
+    else {
+        console.log("WOOHOOO jsuis trop forte");
+    }
 }
