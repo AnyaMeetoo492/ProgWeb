@@ -90,6 +90,8 @@ function initTable(){
      
 }
 
+
+/////////////////PROBLEMEEEEEEEEEE
 function Chiffres(matrice, maxLigne, maxColonne){
     for(let i = 0; i < maxLigne; i++){ //maxLigne est le num de la dernière ligne 
         for(let j = 0; j < maxColonne; j++){ //maxColonne est le num de la dernière colonne
