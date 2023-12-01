@@ -89,10 +89,6 @@ function initTable(){
 }
 
 //decompteur
-$("#StartButton").click(function(){
-    resetdecompteur();
-  });
-
 function decompteur(){
     let temps = 100;
     const timerElement = document.getElementById("timer");
@@ -110,7 +106,7 @@ function ResetDecompte(){
     decompteur();
 }
 
-document.getElementById("StartButton").addEventListener("click", ResetDecompte());
+document.getElementById("Startbutton").addEventListener("click", ResetDecompte());
 
 /////////////////PROBLEMEEEEEEEEEE
 function Chiffres(matrice, maxLigne, maxColonne){
