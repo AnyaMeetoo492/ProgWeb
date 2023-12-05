@@ -18,7 +18,7 @@ function afficheTab(taille, table, matrice){
                 Cell.innerHTML = "<button type='button' name='button' id='buttonbombe' style='background-color: red' onclick='jeu(1)'></button>"; 
             }
             else if (matrice[i][j]>0){ //chiffre
-                Cell.innerHTML = "<button type='button' name='button' id='buttonchiffre' style='background-color: blue'  onclick='jeu(0)'></button>";
+                Cell.innerHTML = "<button type='button' name='button' id='buttonchiffre' style='background-color: blue'  onclick='jeu(0);document.getElementById('buttonchiffre').id = 'buttonrien''></button>";
             }
             else { // autre
                 Cell.innerHTML = "<button type='button  name='button' id='buttonrien' onclick='jeu(0)'></button>";
