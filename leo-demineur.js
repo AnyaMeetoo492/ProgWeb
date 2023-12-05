@@ -2,7 +2,7 @@ let taille = 0;
 let nbbombe = 0;
 
 //affiche le tableau a l'ecran
-function afficheTab(taille, table, matrice){
+function afficheTab(taille, table, matrice,matriceH){
     table.innerHTML = ""; // efface le tableau pour mettre des nouvelles valeurs
     
     // affiche le tableau
@@ -11,43 +11,31 @@ function afficheTab(taille, table, matrice){
         const Ligne = document.createElement("TR"); 
 
         for (let j=0; j<taille; j++){ // pour chaque colonne
-            const Cell = document.createElement("TD");
+            let Cell = document.createElement("TD");
             // ajoute l'élement nécéssaire à chaque cellule du tableau
+            if (matriceH[i][j]==-1){
+                if (matrice[i][j] == -1){ // bombe
+                    Cell.innerHTML = "<button type='button' name='button' id='buttonhide' onclick='jeu(1,matrice,matriceH,i,j)'>"+matrice[i][j]+"</button>"; 
+                }
+                else {
+                Cell.innerHTML = "<button type='button' name='button' id='buttonhide' onclick='jeu(0,matrice,matriceH,i,j)'>"+matrice[i][j]+"</button>";
+                }
+            }
+            else {
+                if (matrice[i][j] ==0){ // bombe
+                    Cell.innerHTML = "<button type='button' name='button' id='buttonrien' onclick='jeu(0,matrice,matriceH,i,j)'>"+matrice[i][j]+"</button>"; 
+                }
+                else {
+                Cell.innerHTML = "<button type='button' name='button' id='buttonchiffre' onclick='jeu(0,matrice,matriceH,i,j)'>"+matrice[i][j]+"</button>";
+                }
 
-            if (matrice[i][j] == -1){ // bombe
-                Cell.innerHTML = "<button type='button' name='button' id='buttonbombe' onclick='jeu(1)'></button>"; 
-            }//document.getElementById('buttonchiffre').id = 'buttonrien'
-            else if (matrice[i][j]>0){ //chiffre
-                Cell.innerHTML = "<button type='button' name='button' id='buttonchiffre' onclick='jeu(0)'></button>";
             }
-            else { // autre
-                Cell.innerHTML = "<button type='button  name='button' id='buttonrien' onclick='jeu(0)'></button>";
-            }
+
             Ligne.appendChild(Cell);
             
         }
         
         table.appendChild(Ligne);
-    }  
-}
-
-function afficheTabC(taille, tableC, matrice){
-    tableC.innerHTML = ""; // efface le tableau pour mettre des nouvelles valeurs
-    
-    // affiche le tableau
-    for (let i=0; i<taille; i++){ // pour chaque ligne 
-    
-        const Ligne = document.createElement("TR"); 
-
-        for (let j=0; j<taille; j++){ // pour chaque colonne
-            const Cell = document.createElement("TD");
-            // ajoute l'élement nécéssaire à chaque cellule du tableau
-            Cell.innerHTML = "<button type='button' name='button' id='buttonhide' onclick='remove()'></button>"; 
-            Ligne.appendChild(Cell);
-            
-        }
-        
-        tableC.appendChild(Ligne);
     }  
 }
 
@@ -78,7 +66,6 @@ function initTable(){
     // let taille = 10;
     // let nbbombe = 10;
     const table = document.getElementById("tableNonCache"); // tableau affiché sur écran
-    const tableC = document.getElementById("tableCache");
 
     let matriceBombe = []; // matrice des bombes
 
@@ -89,6 +76,17 @@ function initTable(){
             arrayzeros.push(0);
         }
         matriceBombe.push(arrayzeros);
+    }
+
+    let matriceHist = []; // matrice des bombes
+
+    // remplit la matrice de zeros --- difficile a creer une matrice de zeros 
+    for (let l=0; l<taille; l++){
+        let arrayvide = [];
+        for (let c=0; c<taille; c++){
+            arrayvide.push(-1);
+        }
+        matriceHist.push(arrayvide);
     }
 
     // les bombes dans la matrice a des positions randoms
@@ -107,35 +105,29 @@ function initTable(){
     // taille,nbbombe = modeChoisi(); // taille du tableau 
 
     let matrice = Chiffres(matriceBombe, taille, taille)
-    afficheTab(taille, table, matrice);
-    afficheTabC(taille,tableC,matrice);
+    afficheTab(taille, table, matrice,matriceHist);
      
 }
 
 //decompteur
-$("#StartButton").click(function(){
-    resetdecompteur();
-  });
-
 function decompteur(){
-    let reset = false; 
     let temps = 100;
-        const timerElement = document.getElementById("timer");
-        function Red_Temps(){
-            timerElement.innerText = temps;
-            let minutes = parseInt(temps / 60, 10)
-            let secondes = parseInt(temps % 60, 10)
-            temps = temps <= 0 ? 0 : temps - 1;
+    const timerElement = document.getElementById("timer");
+    function Red_Temps(){
+        timerElement.innerText = temps;
+        let minutes = parseInt(temps / 60, 10)
+        let secondes = parseInt(temps % 60, 10)
+        temps = temps <= 0 ? 0 : temps - 1;
+        console.log('idle');
         }
-        setInterval(Red_Temps,1000); //1000 c'est 1s, en gros ça fait red_temps toutes les 1s
+    decompte = setInterval(Red_Temps,1000);//1000 c'est 1s, en gros ça fait red_temps toutes les 1s
 }
-function resetdecompteur(){
-    if(reset===false)
-    {
-      clearInterval(timer);
-      reset = true;
-    }
-} 
+function ResetDecompte(){
+    clearInterval(decompte);
+    decompteur();
+}
+
+document.getElementById("Startbutton").addEventListener("click", ResetDecompte());
 
 /////////////////PROBLEMEEEEEEEEEE
 function Chiffres(matrice, maxLigne, maxColonne){
@@ -185,11 +177,15 @@ function Chiffres(matrice, maxLigne, maxColonne){
 
 // Lance le jeu
 // fini le jeu si on trouve toutes les bombes ou user a clique sur une bombe
-function jeu(GameOver){
+function jeu(GameOver,matriceB,matrice,matriceH,i,j){
     if (GameOver){
         console.log("OVER");
     }
     else {
         console.log("WOOHOOO jsuis trop forte");
+        matriceH[i][j]=0;
+        if (matriceH==matriceB){
+            console.log("Victoire");
+        }
     }
 }
