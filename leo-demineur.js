@@ -4,7 +4,7 @@ let nbbombe = 0;
 //affiche le tableau a l'ecran
 function afficheTab(taille, table, matrice,matriceH){
     table.innerHTML = ""; // efface le tableau pour mettre des nouvelles valeurs
-    
+    let matrice=matrice;
     // affiche le tableau
     for (let i=0; i<taille; i++){ // pour chaque ligne 
     
@@ -15,18 +15,18 @@ function afficheTab(taille, table, matrice,matriceH){
             // ajoute l'élement nécéssaire à chaque cellule du tableau
             if (matriceH[i][j]==-1){
                 if (matrice[i][j] == -1){ // bombe
-                    Cell.innerHTML = "<button type='button' name='button' id='buttonhide' onclick='jeu(1,matrice,matriceH,i,j)'>"+matrice[i][j]+"</button>"; 
+                    Cell.innerHTML = "<button type='button' name='button' id='buttonhide' onclick='jeu(1,matrice,matriceH,i,j,table)'>"+matrice[i][j]+"</button>"; 
                 }
                 else {
-                Cell.innerHTML = "<button type='button' name='button' id='buttonhide' onclick='jeu(0,matrice,matriceH,i,j)'>"+matrice[i][j]+"</button>";
+                Cell.innerHTML = "<button type='button' name='button' id='buttonhide' onclick='jeu(0,matrice,matriceH,i,j,table)'>"+matrice[i][j]+"</button>";
                 }
             }
             else {
                 if (matrice[i][j] ==0){ // bombe
-                    Cell.innerHTML = "<button type='button' name='button' id='buttonrien' onclick='jeu(0,matrice,matriceH,i,j)'>"+matrice[i][j]+"</button>"; 
+                    Cell.innerHTML = "<button type='button' name='button' id='buttonrien' onclick='jeu(0,matrice,matriceH,i,j,table)'>"+matrice[i][j]+"</button>"; 
                 }
                 else {
-                Cell.innerHTML = "<button type='button' name='button' id='buttonchiffre' onclick='jeu(0,matrice,matriceH,i,j)'>"+matrice[i][j]+"</button>";
+                Cell.innerHTML = "<button type='button' name='button' id='buttonchiffre' onclick='jeu(0,matrice,matriceH,i,j,table)'>"+matrice[i][j]+"</button>";
                 }
 
             }
@@ -177,7 +177,7 @@ function Chiffres(matrice, maxLigne, maxColonne){
 
 // Lance le jeu
 // fini le jeu si on trouve toutes les bombes ou user a clique sur une bombe
-function jeu(GameOver,matriceB,matrice,matriceH,i,j){
+function jeu(GameOver,matriceB,matrice,matriceH,i,j,table){
     if (GameOver){
         console.log("OVER");
     }
@@ -188,4 +188,5 @@ function jeu(GameOver,matriceB,matrice,matriceH,i,j){
             console.log("Victoire");
         }
     }
+    afficheTab(length(matriceB),table,matrice,matriceH);
 }
