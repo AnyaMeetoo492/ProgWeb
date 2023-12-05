@@ -14,13 +14,13 @@ function afficheTab(taille, table, matrice){
             const Cell = document.createElement("TD");
             // ajoute l'élement nécéssaire à chaque cellule du tableau
 
-            if (matrice[i][j] == -1){
+            if (matrice[i][j] == -1){ // bombe
                 Cell.innerHTML = "<button type='button' name='button' id='buttonbombe' style='background-color: red' onclick='jeu(1)'>"+matrice[i][j]+"</button>"; 
             }
-            else if (matrice[i][j]>0){
+            else if (matrice[i][j]>0){ //chiffre
                 Cell.innerHTML = "<button type='button' name='button' id='buttonchiffre' style='background-color: blue'  onclick='jeu(0)'>"+matrice[i][j]+"</button>";
             }
-            else {
+            else { // autre
                 Cell.innerHTML = "<button type='button  name='button' id='buttonrien' onclick='jeu(0)'>"+matrice[i][j]+"</button>";
             }
             Ligne.appendChild(Cell);
@@ -90,49 +90,68 @@ function initTable(){
      
 }
 
+//decompteur
+$("#StartButton").click(function(){
+    resetdecompteur();
+  });
+
+function decompteur(){
+    let reset = false; 
+    let temps = 100;
+        const timerElement = document.getElementById("timer");
+        function Red_Temps(){
+            timerElement.innerText = temps;
+            let minutes = parseInt(temps / 60, 10)
+            let secondes = parseInt(temps % 60, 10)
+            temps = temps <= 0 ? 0 : temps - 1;
+        }
+        setInterval(Red_Temps,1000); //1000 c'est 1s, en gros ça fait red_temps toutes les 1s
+}
+function resetdecompteur(){
+    if(reset===false)
+    {
+      clearInterval(timer);
+      reset = true;
+    }
+} 
 
 /////////////////PROBLEMEEEEEEEEEE
 function Chiffres(matrice, maxLigne, maxColonne){
     for(let i = 0; i < maxLigne; i++){ //maxLigne est le num de la dernière ligne 
         for(let j = 0; j < maxColonne; j++){ //maxColonne est le num de la dernière colonne
             if(matrice[i][j] == -1){
-                // Au-dessus de la bombe (en i-1)
-                if(i-1 >= 0){ // il ne faut pas que la colonne d'avant soit inférieur à 0
-                    if(matrice[i-1][j-1] < 9){ //9 bombes max autout d'une case
-                                matrice[i-1][j-1] = matrice[i-1][j-1] + 1;
-                    }
-                    if(matrice[i-1][j] < 9){
-                        matrice[i-1][j] = matrice[i-1][j] + 1;
-                    }
-                    if(j+1 < maxColonne){
-                        if(matrice[i-1][j+1] < 9){
-                            matrice[i-1][j+1] = matrice[i-1][j+1] + 1;
-                        }
-                    }
+                let Ideb = 0;
+                let Ifin = 0;
+                let Jdeb = 0;
+                let Jfin = 0;
+                if (i-1 >= 0){
+                    Ideb = i - 1;
                 }
-                // Des 2 côtés de la bombe (en i)
-                if(matrice[i][j-1] < 9){
-                    matrice[i][j-1] = matrice[i][j-1] + 1;
+                else{
+                    Ideb = i;
                 }
-                //ici mettre pour la bombe???
-                if(j+1 < maxColonne){
-                    if(matrice[i][j+1] < 9){
-                        matrice[i][j+1] = matrice[i][j+1] + 1;
-                    }
+                if (i+1 < maxLigne){
+                    Ifin = i + 1;
                 }
-                // Sous la bombe (en i + 1)
-                if(i+1 < maxLigne){ // il ne faut pas que la colonne d'après soit supérieur au max des colonnes
-                    if(j-1 >= 0){
-                        if(matrice[i+1][j-1] < 9){
-                            matrice[i+1][j-1] = matrice[i+1][j-1] + 1;
-                        }
-                    }
-                    if(matrice[i+1][j] < 9){
-                        matrice[i+1][j] = matrice[i+1][j] + 1;
-                    }
-                    if(j+1 < maxColonne){
-                        if(matrice[i+1][j+1] < 9){
-                            matrice[i+1][j+1] = matrice[i+1][j+1] + 1;
+                else{
+                    Ifin = i;
+                }
+                if (j-1 >= 0){
+                    Jdeb = j - 1;
+                }
+                else{
+                    Jdeb = j;
+                }
+                if (j+1 < maxColonne){
+                    Jfin = j + 1;
+                }
+                else{
+                    Jfin = j;
+                }
+                for(let l = Ideb; l<=Ifin ; l++){
+                    for(let c = Jdeb; c<=Jfin; c++){
+                        if(matrice[l][c]!=-1 && matrice[l][c]<9){
+                            matrice[l][c] = matrice[l][c] + 1;
                         }
                     }
                 }
@@ -142,6 +161,8 @@ function Chiffres(matrice, maxLigne, maxColonne){
     return matrice;
 }
 
+// Lance le jeu
+// fini le jeu si on trouve toutes les bombes ou user a clique sur une bombe
 function jeu(GameOver){
     if (GameOver){
         console.log("OVER");
