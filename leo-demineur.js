@@ -15,13 +15,13 @@ function afficheTab(taille, table, matrice){
             // ajoute l'élement nécéssaire à chaque cellule du tableau
 
             if (matrice[i][j] == -1){ // bombe
-                Cell.innerHTML = "<button type='button' name='button' id='buttonbombe' style='background-color: red' onclick='jeu(1)'>"+matrice[i][j]+"</button>"; 
+                Cell.innerHTML = "<button type='button' name='button' id='buttonbombe' style='background-color: red' onclick='jeu(1)'></button>"; 
             }
             else if (matrice[i][j]>0){ //chiffre
-                Cell.innerHTML = "<button type='button' name='button' id='buttonchiffre' style='background-color: blue'  onclick='jeu(0)'>"+matrice[i][j]+"</button>";
+                Cell.innerHTML = "<button type='button' name='button' id='buttonchiffre' style='background-color: blue'  onclick='jeu(0)'></button>";
             }
             else { // autre
-                Cell.innerHTML = "<button type='button  name='button' id='buttonrien' onclick='jeu(0)'>"+matrice[i][j]+"</button>";
+                Cell.innerHTML = "<button type='button  name='button' id='buttonrien' onclick='jeu(0)'></button>";
             }
             Ligne.appendChild(Cell);
             
