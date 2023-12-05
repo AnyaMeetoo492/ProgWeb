@@ -18,7 +18,7 @@
             <option value="Hard">Hard</option>
         </select>
     
-        <button type="button" id="Startbutton" onclick="modeChoisi(); initTable(); ResetDecompte()">Start</button>
+        <button type="button" id="Startbutton" onclick="modeChoisi(); initTable()">Start</button><!--; ResetDecompte()-->
 
         <!-- <h2 id="nbdrapeau">Drapeaux restant: 0</h2> -->
     
@@ -31,6 +31,7 @@
 
     <table border="1" id="tableNonCache">
     </table>
+    <table border="1" id="tableCache"></table>
     
     <script>jeu();</script>
     

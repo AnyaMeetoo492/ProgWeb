@@ -16,11 +16,18 @@ table{
   width: 6em
 }
 
+#tableCache{
+  border-spacing : 0;
+  border-collapse : collapse;
+  margin-left: auto;
+  margin-right: auto;
+  width: 6em
+}
+
 #buttonhide{
   width  : 50px;
   height : 50px;
-  background : green;
-  color : green;
+  background : rgb(222, 243, 2);
 }
 
 #buttonbombe{
@@ -34,7 +41,7 @@ table{
     background : green;
   }
 
-  #buttonrien{
+#buttonrien{
     width  : 50px;
     height : 50px;
     background : grey;

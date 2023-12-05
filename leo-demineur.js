@@ -15,10 +15,10 @@ function afficheTab(taille, table, matrice){
             // ajoute l'élement nécéssaire à chaque cellule du tableau
 
             if (matrice[i][j] == -1){ // bombe
-                Cell.innerHTML = "<button type='button' name='button' id='buttonbombe' style='background-color: red' onclick='jeu(1)'></button>"; 
-            }
+                Cell.innerHTML = "<button type='button' name='button' id='buttonbombe' onclick='jeu(1)'></button>"; 
+            }//document.getElementById('buttonchiffre').id = 'buttonrien'
             else if (matrice[i][j]>0){ //chiffre
-                Cell.innerHTML = "<button type='button' name='button' id='buttonchiffre' style='background-color: blue'  onclick='jeu(0);document.getElementById('buttonchiffre').id = 'buttonrien''></button>";
+                Cell.innerHTML = "<button type='button' name='button' id='buttonchiffre' onclick='jeu(0)'></button>";
             }
             else { // autre
                 Cell.innerHTML = "<button type='button  name='button' id='buttonrien' onclick='jeu(0)'></button>";
@@ -28,6 +28,26 @@ function afficheTab(taille, table, matrice){
         }
         
         table.appendChild(Ligne);
+    }  
+}
+
+function afficheTabC(taille, tableC, matrice){
+    tableC.innerHTML = ""; // efface le tableau pour mettre des nouvelles valeurs
+    
+    // affiche le tableau
+    for (let i=0; i<taille; i++){ // pour chaque ligne 
+    
+        const Ligne = document.createElement("TR"); 
+
+        for (let j=0; j<taille; j++){ // pour chaque colonne
+            const Cell = document.createElement("TD");
+            // ajoute l'élement nécéssaire à chaque cellule du tableau
+            Cell.innerHTML = "<button type='button' name='button' id='buttonhide' onclick='remove()'></button>"; 
+            Ligne.appendChild(Cell);
+            
+        }
+        
+        tableC.appendChild(Ligne);
     }  
 }
 
@@ -58,6 +78,7 @@ function initTable(){
     // let taille = 10;
     // let nbbombe = 10;
     const table = document.getElementById("tableNonCache"); // tableau affiché sur écran
+    const tableC = document.getElementById("tableCache");
 
     let matriceBombe = []; // matrice des bombes
 
@@ -87,6 +108,7 @@ function initTable(){
 
     let matrice = Chiffres(matriceBombe, taille, taille)
     afficheTab(taille, table, matrice);
+    afficheTabC(taille,tableC,matrice);
      
 }
 
