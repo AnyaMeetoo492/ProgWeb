@@ -11,18 +11,16 @@ function afficheTab(taille, table, matrice){
         const Ligne = document.createElement("TR"); 
 
         for (let j=0; j<taille; j++){ // pour chaque colonne
-            const Cell = document.createElement("TD");
+            let Cell = document.createElement("TD");
             // ajoute l'élement nécéssaire à chaque cellule du tableau
 
             if (matrice[i][j] == -1){ // bombe
-                Cell.innerHTML = "<button type='button' name='button' id='buttonbombe' style='background-color: red' onclick='jeu(1)'>"+matrice[i][j]+"</button>"; 
+                Cell.innerHTML = "<button type='button' name='button' id='buttonhide' onclick='jeu(1,matrice[i][j])'>"+matrice[i][j]+"</button>"; 
             }
-            else if (matrice[i][j]>0){ //chiffre
-                Cell.innerHTML = "<button type='button' name='button' id='buttonchiffre' style='background-color: blue'  onclick='jeu(0)'>"+matrice[i][j]+"</button>";
+            else { //chiffre
+                Cell.innerHTML = "<button type='button' name='button' id='buttonhide' onclick='jeu(0,matrice[i][j])'>"+matrice[i][j]+"</button>"; 
             }
-            else { // autre
-                Cell.innerHTML = "<button type='button  name='button' id='buttonrien' onclick='jeu(0)'>"+matrice[i][j]+"</button>";
-            }
+
             Ligne.appendChild(Cell);
             
         }
@@ -91,29 +89,24 @@ function initTable(){
 }
 
 //decompteur
-$("#StartButton").click(function(){
-    resetdecompteur();
-  });
-
 function decompteur(){
-    let reset = false; 
     let temps = 100;
-        const timerElement = document.getElementById("timer");
-        function Red_Temps(){
-            timerElement.innerText = temps;
-            let minutes = parseInt(temps / 60, 10)
-            let secondes = parseInt(temps % 60, 10)
-            temps = temps <= 0 ? 0 : temps - 1;
+    const timerElement = document.getElementById("timer");
+    function Red_Temps(){
+        timerElement.innerText = temps;
+        let minutes = parseInt(temps / 60, 10)
+        let secondes = parseInt(temps % 60, 10)
+        temps = temps <= 0 ? 0 : temps - 1;
+        console.log('idle');
         }
-        setInterval(Red_Temps,1000); //1000 c'est 1s, en gros ça fait red_temps toutes les 1s
+    decompte = setInterval(Red_Temps,1000);//1000 c'est 1s, en gros ça fait red_temps toutes les 1s
 }
-function resetdecompteur(){
-    if(reset===false)
-    {
-      clearInterval(timer);
-      reset = true;
-    }
-} 
+function ResetDecompte(){
+    clearInterval(decompte);
+    decompteur();
+}
+
+document.getElementById("Startbutton").addEventListener("click", ResetDecompte());
 
 /////////////////PROBLEMEEEEEEEEEE
 function Chiffres(matrice, maxLigne, maxColonne){
@@ -163,11 +156,12 @@ function Chiffres(matrice, maxLigne, maxColonne){
 
 // Lance le jeu
 // fini le jeu si on trouve toutes les bombes ou user a clique sur une bombe
-function jeu(GameOver){
+function jeu(GameOver,valeur){
     if (GameOver){
         console.log("OVER");
     }
     else {
+         
         console.log("WOOHOOO jsuis trop forte");
     }
 }
