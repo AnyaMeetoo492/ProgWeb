@@ -155,7 +155,6 @@ function ChangeBack(){
         document.body.style.color = 'white';
     }
     document.body.style.backgroundSize="cover";
-    document.body.style.backgroundPosition="center center";
 }
 
 // Compte les nombres de bombes autour d'une case et update la matriceBombesChiffres
