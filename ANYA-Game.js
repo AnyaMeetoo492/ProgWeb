@@ -95,9 +95,9 @@ function initTable(){
         for (let c=0; c<taille; c++){
             arrayvide.push(-1);
         }
+        matriceBombes.push(arrayvide);
         matriceHistorique.push(arrayvide);
     }
-    matriceBombes = matriceBombesChiffres;
 
     // les bombes dans la matriceBombesChiffres a des positions randoms
     while (nbbombe>0){
