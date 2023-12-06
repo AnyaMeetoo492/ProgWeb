@@ -59,6 +59,8 @@ function initTable(){
     // let nbbombe = 10;
     const table = document.getElementById("tableNonCache"); // tableau affiché sur écran
 
+    matrice = [];
+
     // remplit la matrice de zeros --- difficile a creer une matrice de zeros 
     for (let l=0; l<taille; l++){
         let arrayzeros = [];
