@@ -15,12 +15,12 @@ function afficheTab(table){
     
         const Ligne = document.createElement("TR"); 
 
-        for (j=0; j<taille; j++){ // pour chaque colonne
+        for (let j=0; j<taille; j++){ // pour chaque colonne
             let Cell = document.createElement("TD");
             // ajoute l'élement nécéssaire à chaque cellule du tableau
             if (matriceHistorique[i][j]==-1){
                 if (matriceBombesChiffres[i][j] == -1){ // bombe
-                    Cell.innerHTML = "<button type='button' name='button' id='buttonhide' onclick='jeu(1,i,i,table)'>"+matriceBombesChiffres[i][j]+"</button>"; 
+                    Cell.innerHTML = "<button type='button' name='button' id='buttonhide' onclick='jeu(1,'i','j',table)'>"+matriceBombesChiffres[i][j]+"</button>"; 
                 }
                 else {
                 Cell.innerHTML = "<button type='button' name='button' id='buttonhide' onclick='jeu(0,i,i,table)'>"+matriceBombesChiffres[i][j]+"</button>";
