@@ -3,27 +3,27 @@ let nbbombe = 0;
 let matriceBombesChiffres = [];
 let matriceHistorique = [];
 let matriceBombes = [];
+let i=0;
+let j=0;
 
 
 //affiche le tableau a l'ecran
 function afficheTab(table){
     table.innerHTML = ""; // efface le tableau pour mettre des nouvelles valeurs
     // affiche le tableau
-    let i=0;
-    let j=0;
     for (i=0; i<taille; i++){ // pour chaque ligne 
     
         const Ligne = document.createElement("TR"); 
 
-        for (let j=0; j<taille; j++){ // pour chaque colonne
+        for (j=0; j<taille; j++){ // pour chaque colonne
             let Cell = document.createElement("TD");
             // ajoute l'élement nécéssaire à chaque cellule du tableau
             if (matriceHistorique[i][j]==-1){
                 if (matriceBombesChiffres[i][j] == -1){ // bombe
-                    Cell.innerHTML = "<button type='button' name='button' id='buttonhide' onclick='jeu(1,'i','j',table)'>"+matriceBombesChiffres[i][j]+"</button>"; 
+                    Cell.innerHTML = "<button type='button' name='button' id='buttonhide' onclick='jeu(1,table)'>"+matriceBombesChiffres[i][j]+"</button>"; 
                 }
                 else {
-                Cell.innerHTML = "<button type='button' name='button' id='buttonhide' onclick='jeu(0,i,i,table)'>"+matriceBombesChiffres[i][j]+"</button>";
+                Cell.innerHTML = "<button type='button' name='button' id='buttonhide' onclick='jeu(0,table)'>"+matriceBombesChiffres[i][j]+"</button>";
                 }
             }
             else {
