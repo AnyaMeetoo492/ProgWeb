@@ -110,6 +110,7 @@ function initTable(){
 }
 
 //decompteur
+let decompte;
 function decompteur(){
     let temps = 100;
     const timerElement = document.getElementById("timer");
@@ -126,7 +127,6 @@ function ResetDecompte(){
     clearInterval(decompte);
     decompteur();
 }
-
 document.getElementById("Startbutton").addEventListener("click", ResetDecompte());
 
 /////////////////PROBLEMEEEEEEEEEE
