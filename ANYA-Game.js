@@ -210,6 +210,20 @@ function Chiffres(matriceBombesChiffres, maxLigne, maxColonne){
     return matriceBombesChiffres;
 }
 
+function matrice_egale(matA,matB){
+    let i=0;
+    let j=0;
+    let res=1;
+    for (i=0;i<matA.length;i++){
+        for (j=0;j<matA[i].length;j++){
+            if (matA[i][j]!=matB[i][j]){
+                res=0;
+            }
+        }
+    }
+    return res;
+}
+
 // Lance le jeu
 // fini le jeu si on trouve toutes les bombes ou user a clique sur une bombe
 function jeu(GameOver,i,j){
@@ -217,10 +231,9 @@ function jeu(GameOver,i,j){
         console.log("OVER");
     }
     else {
-        console.log(matriceBombes);
-        console.log(matriceHistorique);
         matriceHistorique[i][j]=0;
-        if (matriceHistorique===matriceBombes){
+        console.log(matrice_egale(matriceHistorique,matriceBombes));
+        if (matrice_egale(matriceHistorique,matriceBombes)){
             console.log("Victoire");
         }
     }

@@ -214,8 +214,8 @@ function matrice_egale(matA,matB){
     let i=0;
     let j=0;
     let res=1;
-    for (i=0;i<length(matA);i++){
-        for (j=0; j<length(matA[i]),j++){
+    for (i=0;i<matA.length;i++){
+        for (j=0;j<matA[i].length;j++){
             if (matA[i][j]!=matB[i][j]){
                 res=0;
             }
