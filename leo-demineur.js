@@ -87,7 +87,6 @@ function initTable(){
         }
         matriceHist.push(arrayvide);
     }
-
     // les bombes dans la matrice a des positions randoms
     while (nbbombe>0){
 
