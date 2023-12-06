@@ -1,31 +1,41 @@
 let taille = 0;
 let nbbombe = 0;
+let matriceBombesChiffres = [];
+let matriceHistorique = [];
+let matriceBombes = [];
+let table=[];
+
 
 //affiche le tableau a l'ecran
-function afficheTab(taille, table, matrice,matriceH,matriceB){
+function afficheTab(table){
     table.innerHTML = ""; // efface le tableau pour mettre des nouvelles valeurs
     // affiche le tableau
-    for (let i=0; i<taille; i++){ // pour chaque ligne 
+    let i=0;
+    let j=0;
+    for (i=0; i<taille; i++){ // pour chaque ligne 
     
         const Ligne = document.createElement("TR"); 
 
-        for (let j=0; j<taille; j++){ // pour chaque colonne
+        for (j=0; j<taille; j++){ // pour chaque colonne
             let Cell = document.createElement("TD");
             // ajoute l'élement nécéssaire à chaque cellule du tableau
-            if (matriceH[i][j]==-1){
-                if (matrice[i][j] == -1){ // bombe
-                    Cell.innerHTML = "<button type='button' name='button' id='buttonhide' onclick='jeu(1,matrice,matriceH,i,j,table)'>"+matrice[i][j]+"</button>"; 
+            if (matriceHistorique[i][j]==-1){
+                if (matriceBombesChiffres[i][j] == -1){ // bombe
+                    Cell.innerHTML = "<button type='button' name='button' id='buttonhide' onclick='jeu(1,"+i+","+j+")'>"+matriceBombesChiffres[i][j]+"</button>"; 
                 }
                 else {
-                Cell.innerHTML = "<button type='button' name='button' id='buttonhide' onclick='jeu(0,matrice,matriceH,i,j,table)'>"+matrice[i][j]+"</button>";
+                Cell.innerHTML = "<button type='button' name='button' id='buttonhide' onclick='jeu(0,"+i+","+j+")'></button>";
                 }
             }
             else {
-                if (matrice[i][j] ==0){ // bombe
-                    Cell.innerHTML = "<button type='button' name='button' id='buttonrien' onclick='jeu(0,matrice,matriceH,i,j,table)'>"+matrice[i][j]+"</button>"; 
+                if (matriceBombesChiffres[i][j] ==0){ // bombe
+                    Cell.innerHTML = "<button type='button' name='button' id='buttonrien'>"+matriceBombesChiffres[i][j]+"</button>"; 
+                }
+                else if (matriceBombesChiffres[i][j] ==-1){ // bombe
+                    Cell.innerHTML = "<button type='button' name='button' id='buttonbombe'>"+matriceBombesChiffres[i][j]+"</button>"; 
                 }
                 else {
-                Cell.innerHTML = "<button type='button' name='button' id='buttonchiffre' onclick='jeu(0,matrice,matriceH,i,j,table)'>"+matrice[i][j]+"</button>";
+                Cell.innerHTML = "<button type='button' name='button' id='buttonchiffre'>"+matriceBombesChiffres[i][j]+"</button>";
                 }
 
             }
@@ -59,51 +69,53 @@ function modeChoisi(){
 
 }
 
-// Initialise une matrice avec bombes et chiffres et la renvoit 
+// Initialise une matriceBombesChiffres avec bombes et chiffres et la renvoit 
 // Modifie le tableau pour le début de partie
 function initTable(){
     // let taille = 10;
     // let nbbombe = 10;
-    const table = document.getElementById("tableNonCache"); // tableau affiché sur écran
+    table = document.getElementById("tableNonCache"); // tableau affiché sur écran
 
-    let matriceBombe = []; // matrice des bombes
+    matriceBombesChiffres = [];
 
-    // remplit la matrice de zeros --- difficile a creer une matrice de zeros 
+    // remplit la matriceBombesChiffres de zeros --- difficile a creer une matriceBombesChiffres de zeros 
     for (let l=0; l<taille; l++){
         let arrayzeros = [];
         for (let c=0; c<taille; c++){
             arrayzeros.push(0);
         }
-        matriceBombe.push(arrayzeros);
+        matriceBombesChiffres.push(arrayzeros);
     }
 
-    let matriceHist = []; // matrice des bombes
+    matriceHistorique = [];
 
-    // remplit la matrice de zeros --- difficile a creer une matrice de zeros 
+    // matrice historique update quand user clique sur un button
     for (let l=0; l<taille; l++){
         let arrayvide = [];
         for (let c=0; c<taille; c++){
             arrayvide.push(-1);
         }
-        matriceHist.push(arrayvide);
+        matriceHistorique.push(arrayvide);
     }
-    // les bombes dans la matrice a des positions randoms
+    matriceBombes = matriceBombesChiffres;
+
+    // les bombes dans la matriceBombesChiffres a des positions randoms
     while (nbbombe>0){
 
         let randomligne = Math.floor(Math.random() * taille);
         let randomcolonne =  Math.floor(Math.random() * taille);
 
-        if (matriceBombe[randomligne][randomcolonne] == 0){ // si pas de bommbe déjà
-             matriceBombe[randomligne][randomcolonne] = -1; // mettre une bombe
-             nbbombe--; 
+        if (matriceBombesChiffres[randomligne][randomcolonne] == 0){ // si pas de bommbe déjà
+            matriceBombes[randomligne][randomcolonne] = -1;
+            matriceBombesChiffres[randomligne][randomcolonne] = -1; // mettre une bombe
+            nbbombe--; 
         }
 
     }
 
-    // taille,nbbombe = modeChoisi(); // taille du tableau 
-
-    let matrice = Chiffres(matriceBombe, taille, taille)
-    afficheTab(taille, table, matrice,matriceHist,matriceBombe);
+    // Compte les bombes autour de chaque case
+    matriceBombesChiffres = Chiffres(matriceBombesChiffres, taille, taille)
+    afficheTab(table);
      
 }
 
@@ -127,20 +139,17 @@ function ResetDecompte(){
 }
 document.getElementById("Startbutton").addEventListener("click", ResetDecompte());
 
-/////////////////PROBLEMEEEEEEEEEE
-function Chiffres(matrice, maxLigne, maxColonne){
+// Compte les nombres de bombes autour d'une case et update la matriceBombesChiffres
+function Chiffres(matriceBombesChiffres, maxLigne, maxColonne){
     for(let i = 0; i < maxLigne; i++){ //maxLigne est le num de la dernière ligne 
         for(let j = 0; j < maxColonne; j++){ //maxColonne est le num de la dernière colonne
-            if(matrice[i][j] == -1){
+            if(matriceBombesChiffres[i][j] == -1){
                 let Ideb = 0;
                 let Ifin = 0;
                 let Jdeb = 0;
                 let Jfin = 0;
                 if (i-1 >= 0){
                     Ideb = i - 1;
-                }
-                else{
-                    Ideb = i;
                 }
                 if (i+1 < maxLigne){
                     Ifin = i + 1;
@@ -162,29 +171,28 @@ function Chiffres(matrice, maxLigne, maxColonne){
                 }
                 for(let l = Ideb; l<=Ifin ; l++){
                     for(let c = Jdeb; c<=Jfin; c++){
-                        if(matrice[l][c]!=-1 && matrice[l][c]<9){
-                            matrice[l][c] = matrice[l][c] + 1;
+                        if(matriceBombesChiffres[l][c]!=-1 && matriceBombesChiffres[l][c]<9){
+                            matriceBombesChiffres[l][c] = matriceBombesChiffres[l][c] + 1;
                         }
                     }
                 }
             }
         }
     }
-    return matrice;
+    return matriceBombesChiffres;
 }
 
 // Lance le jeu
 // fini le jeu si on trouve toutes les bombes ou user a clique sur une bombe
-function jeu(GameOver,matriceB,matrice,matriceH,i,j,table){
+function jeu(GameOver,i,j){
     if (GameOver){
         console.log("OVER");
     }
     else {
-        console.log("WOOHOOO jsuis trop forte");
-        matriceH[i][j]=0;
-        if (matriceH==matriceB){
+        matriceHistorique[i][j]=0;
+        if (matriceHistorique==matriceBombes){
             console.log("Victoire");
         }
     }
-    afficheTab(length(matriceB),table,matrice,matriceH,matriceB);
+    afficheTab(table);
 }

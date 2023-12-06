@@ -35,7 +35,7 @@ table{
 #buttonhide{
   width  : 50px;
   height : 50px;
-  background : rgb(222, 243, 2);
+  background : rgb(3, 165, 76);
 }
 
 #buttonbombe{
@@ -46,7 +46,7 @@ table{
 #buttonchiffre{
     width  : 50px;
     height : 50px;
-    background : green;
+    background : rgb(5, 116, 207);
   }
 
 #buttonrien{
