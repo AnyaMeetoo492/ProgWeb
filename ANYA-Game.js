@@ -54,8 +54,8 @@ function modeChoisi(){
     let mode = document.getElementById("mode").value;
 
     if (mode == "Easy"){
-        taille = 10;
-        nbbombe = 10;
+        taille = 5;
+        nbbombe = 2;
     }
     else if (mode == "Medium"){
         taille = 14;
@@ -77,14 +77,24 @@ function initTable(){
     table = document.getElementById("tableNonCache"); // tableau affiché sur écran
 
     matriceBombesChiffres = [];
+    matriceBombes = [];
 
-    // remplit la matriceBombesChiffres de zeros --- difficile a creer une matriceBombesChiffres de zeros 
+    // remplit la matriceBombesChiffres de zeros --- difficile a creer une matriceBomconsole.log(matriceBombes);besChiffres de zeros 
     for (let l=0; l<taille; l++){
-        let arrayzeros = [];
+        let arrayzeros1 = [];
         for (let c=0; c<taille; c++){
-            arrayzeros.push(0);
+            arrayzeros1.push(0);
         }
-        matriceBombesChiffres.push(arrayzeros);
+        matriceBombesChiffres.push(arrayzeros1);
+    }
+
+    for (let l=0; l<taille; l++){
+        let arrayzeros2 = [];
+        for (let c=0; c<taille; c++){
+            arrayzeros2.push(0);
+        }
+        matriceBombes.push(arrayzeros2);
+
     }
 
     matriceHistorique = [];
@@ -97,7 +107,6 @@ function initTable(){
         }
         matriceHistorique.push(arrayvide);
     }
-    matriceBombes = matriceBombesChiffres;
 
     // les bombes dans la matriceBombesChiffres a des positions randoms
     while (nbbombe>0){
@@ -205,8 +214,10 @@ function jeu(GameOver,i,j){
         console.log("OVER");
     }
     else {
+        console.log(matriceBombes);
+        console.log(matriceHistorique);
         matriceHistorique[i][j]=0;
-        if (matriceHistorique==matriceBombes){
+        if (matriceHistorique===matriceBombes){
             console.log("Victoire");
         }
     }
