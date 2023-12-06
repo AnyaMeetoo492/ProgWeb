@@ -157,7 +157,7 @@ function Chiffres(matrice, maxLigne, maxColonne){
 // Lance le jeu
 // fini le jeu si on trouve toutes les bombes ou user a clique sur une bombe
 function jeu(GameOver,valeur){
-    if (GameOver){
+    if (GameOver || decompte==0){
         console.log("OVER");
     }
     else {
