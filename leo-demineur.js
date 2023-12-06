@@ -1,5 +1,9 @@
 let taille = 0;
 let nbbombe = 0;
+let matriceBombesChiffres = [];
+let matriceHistorique = [];
+let matriceBombes = [];
+
 
 //affiche le tableau a l'ecran
 function afficheTab(table){
@@ -14,10 +18,10 @@ function afficheTab(table){
             // ajoute l'élement nécéssaire à chaque cellule du tableau
             if (matriceHistorique[i][j]==-1){
                 if (matriceBombesChiffres[i][j] == -1){ // bombe
-                    Cell.innerHTML = "<button type='button' name='button' id='buttonhide' onclick='jeu(1,i,j,table)'>"+matriceBombesChiffres[i][j]+"</button>"; 
+                    Cell.innerHTML = "<button type='button' name='button' id='buttonhide' onclick='jeu(1,''i'',''j'',table)'>"+matriceBombesChiffres[i][j]+"</button>"; 
                 }
                 else {
-                Cell.innerHTML = "<button type='button' name='button' id='buttonhide' onclick='jeu(0,i,j,table)'>"+matriceBombesChiffres[i][j]+"</button>";
+                Cell.innerHTML = "<button type='button' name='button' id='buttonhide' onclick='jeu(0,''i'',''j'',table)'>"+matriceBombesChiffres[i][j]+"</button>";
                 }
             }
             else {
@@ -62,50 +66,52 @@ function modeChoisi(){
 
 }
 
-// Initialise une matrice avec bombes et chiffres et la renvoit 
+// Initialise une matriceBombesChiffres avec bombes et chiffres et la renvoit 
 // Modifie le tableau pour le début de partie
 function initTable(){
     // let taille = 10;
     // let nbbombe = 10;
     const table = document.getElementById("tableNonCache"); // tableau affiché sur écran
 
-    let matriceBombe = []; // matrice des bombes
+    matriceBombesChiffres = [];
 
-    // remplit la matrice de zeros --- difficile a creer une matrice de zeros 
+    // remplit la matriceBombesChiffres de zeros --- difficile a creer une matriceBombesChiffres de zeros 
     for (let l=0; l<taille; l++){
         let arrayzeros = [];
         for (let c=0; c<taille; c++){
             arrayzeros.push(0);
         }
-        matriceBombe.push(arrayzeros);
+        matriceBombesChiffres.push(arrayzeros);
     }
 
-    let matriceHist = []; // matrice des bombes
+    matriceHistorique = [];
 
-    // remplit la matrice de zeros --- difficile a creer une matrice de zeros 
+    // matrice historique update quand user clique sur un button
     for (let l=0; l<taille; l++){
         let arrayvide = [];
         for (let c=0; c<taille; c++){
             arrayvide.push(-1);
         }
-        matriceHist.push(arrayvide);
+        matriceHistorique.push(arrayvide);
     }
-    // les bombes dans la matrice a des positions randoms
+    matriceBombes = matriceBombesChiffres;
+
+    // les bombes dans la matriceBombesChiffres a des positions randoms
     while (nbbombe>0){
 
         let randomligne = Math.floor(Math.random() * taille);
         let randomcolonne =  Math.floor(Math.random() * taille);
 
-        if (matriceBombe[randomligne][randomcolonne] == 0){ // si pas de bommbe déjà
-             matriceBombe[randomligne][randomcolonne] = -1; // mettre une bombe
-             nbbombe--; 
+        if (matriceBombesChiffres[randomligne][randomcolonne] == 0){ // si pas de bommbe déjà
+            matriceBombes[randomligne][randomcolonne] = -1;
+            matriceBombesChiffres[randomligne][randomcolonne] = -1; // mettre une bombe
+            nbbombe--; 
         }
 
     }
 
-    // taille,nbbombe = modeChoisi(); // taille du tableau 
-
-    let matrice = Chiffres(matriceBombe, taille, taille)
+    // Compte les bombes autour de chaque case
+    matriceBombesChiffres = Chiffres(matriceBombesChiffres, taille, taille)
     afficheTab(table);
      
 }
@@ -130,20 +136,17 @@ function ResetDecompte(){
 }
 document.getElementById("Startbutton").addEventListener("click", ResetDecompte());
 
-/////////////////PROBLEMEEEEEEEEEE
-function Chiffres(matrice, maxLigne, maxColonne){
+// Compte les nombres de bombes autour d'une case et update la matriceBombesChiffres
+function Chiffres(matriceBombesChiffres, maxLigne, maxColonne){
     for(let i = 0; i < maxLigne; i++){ //maxLigne est le num de la dernière ligne 
         for(let j = 0; j < maxColonne; j++){ //maxColonne est le num de la dernière colonne
-            if(matrice[i][j] == -1){
+            if(matriceBombesChiffres[i][j] == -1){
                 let Ideb = 0;
                 let Ifin = 0;
                 let Jdeb = 0;
                 let Jfin = 0;
                 if (i-1 >= 0){
                     Ideb = i - 1;
-                }
-                else{
-                    Ideb = i;
                 }
                 if (i+1 < maxLigne){
                     Ifin = i + 1;
@@ -165,15 +168,15 @@ function Chiffres(matrice, maxLigne, maxColonne){
                 }
                 for(let l = Ideb; l<=Ifin ; l++){
                     for(let c = Jdeb; c<=Jfin; c++){
-                        if(matrice[l][c]!=-1 && matrice[l][c]<9){
-                            matrice[l][c] = matrice[l][c] + 1;
+                        if(matriceBombesChiffres[l][c]!=-1 && matriceBombesChiffres[l][c]<9){
+                            matriceBombesChiffres[l][c] = matriceBombesChiffres[l][c] + 1;
                         }
                     }
                 }
             }
         }
     }
-    return matrice;
+    return matriceBombesChiffres;
 }
 
 // Lance le jeu
