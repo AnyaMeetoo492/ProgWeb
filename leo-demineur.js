@@ -2,7 +2,7 @@ let taille = 0;
 let nbbombe = 0;
 
 //affiche le tableau a l'ecran
-function afficheTab(taille, table, matrice,matriceH,matriceB){
+function afficheTab(table){
     table.innerHTML = ""; // efface le tableau pour mettre des nouvelles valeurs
     // affiche le tableau
     for (let i=0; i<taille; i++){ // pour chaque ligne 
