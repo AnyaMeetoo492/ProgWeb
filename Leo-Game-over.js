@@ -228,6 +228,18 @@ function popup(texte) {
     alert(texte);
     }
 
+function ouverturezero(i,j){
+        if (i>=0 & i<matriceBombesChiffres.length & j>=0 & j<matriceBombesChiffres.length){
+        if (matriceBombesChiffres[i][j]==0){
+            matriceHistorique[i][j]=0;
+            ouverturezero(i+1,j);
+            ouverturezero(i-1,j);
+            ouverturezero(i,j+1);
+            ouverturezero(i,j-1);
+        }
+    }
+}
+
 // Lance le jeu
 // fini le jeu si on trouve toutes les bombes ou user a clique sur une bombe
 function jeu(GameOver,i,j){
@@ -241,6 +253,7 @@ function jeu(GameOver,i,j){
     }
     else {
         matriceHistorique[i][j]=0;
+        //ouverturezero(i,j);
         console.log(matrice_egale(matriceHistorique,matriceBombes));
         if (matrice_egale(matriceHistorique,matriceBombes)){
             popup("Victoire");
