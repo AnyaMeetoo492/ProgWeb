@@ -106,7 +106,7 @@ function initTable(){
     // taille,nbbombe = modeChoisi(); // taille du tableau 
 
     let matrice = Chiffres(matriceBombe, taille, taille)
-    afficheTab(taille, table, matrice,matriceHist,matriceBombe);
+    afficheTab(table);
      
 }
 
