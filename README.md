@@ -65,10 +65,14 @@ Taches :
 - drapeau (indicateur)
 
 
-mission
+mission 1
 
 1. matrice random
 4. fonction chiffres
-
 2. tableau css, js
 3. Compteur de drapeau + affichage drapeau + click gauche
+
+mission 2
+1. Game Over
+2. décor
+3. animation Game Over? 
