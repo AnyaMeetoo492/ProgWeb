@@ -140,11 +140,6 @@ function ResetDecompte(){
 document.getElementById("Startbutton").addEventListener("click", ResetDecompte());
 
 //changer l'image de fond
-let backgrounds = new Array(
-    'url(background-7277773_960_720.jpg)'
-    ,'url(hell-735995_960_720.jpg)'
-);
-
 function ChangeBack(){
     let mode = document.getElementById("mode").value;
     if (mode == "Easy"){
