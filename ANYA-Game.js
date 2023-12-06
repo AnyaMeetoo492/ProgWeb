@@ -156,12 +156,17 @@ function Chiffres(matrice, maxLigne, maxColonne){
 
 // Lance le jeu
 // fini le jeu si on trouve toutes les bombes ou user a clique sur une bombe
-function jeu(GameOver,valeur){
-    if (GameOver || decompte==0){
+function jeu(GameOver,matriceB,matrice,matriceH,i,j,table){
+    if (GameOver || decompte == 0){
         console.log("OVER");
     }
     else {
-         
         console.log("WOOHOOO jsuis trop forte");
+        matriceH[i][j]=0;
+        if (matriceH==matriceB){
+            console.log("Victoire");
+        }
     }
+    afficheTab(length(matriceB),table,matrice,matriceH);
 }
+
