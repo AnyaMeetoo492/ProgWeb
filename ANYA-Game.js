@@ -232,7 +232,7 @@ function jeu(GameOver,i,j){
     }
     else {
         matriceHistorique[i][j]=0;
-        console.log(matrice_egale(matriceHistorique,matriceBombes));
+        //console.log(matrice_egale(matriceHistorique,matriceBombes));
         if (matrice_egale(matriceHistorique,matriceBombes)){
             console.log("Victoire");
         }
