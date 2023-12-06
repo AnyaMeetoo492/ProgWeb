@@ -24,7 +24,7 @@ function afficheTab(table){
                     Cell.innerHTML = "<button type='button' name='button' id='buttonhide' onclick='jeu(1,"+i+","+j+")'>"+matriceBombesChiffres[i][j]+"</button>"; 
                 }
                 else {
-                Cell.innerHTML = "<button type='button' name='button' id='buttonhide' onclick='jeu(0)'>"+matriceBombesChiffres[i][j]+"</button>";
+                Cell.innerHTML = "<button type='button' name='button' id='buttonhide' onclick='jeu(0,"+i+","+j+")'></button>";
                 }
             }
             else {
@@ -189,7 +189,6 @@ function jeu(GameOver,i,j){
         console.log("OVER");
     }
     else {
-        console.log(matriceHistorique);
         matriceHistorique[i][j]=0;
         if (matriceHistorique==matriceBombes){
             console.log("Victoire");
