@@ -184,7 +184,7 @@ function Chiffres(matriceBombesChiffres, maxLigne, maxColonne){
 
 // Lance le jeu
 // fini le jeu si on trouve toutes les bombes ou user a clique sur une bombe
-function jeu(GameOver){
+function jeu(GameOver,i,j){
     if (GameOver){
         console.log("OVER");
     }
