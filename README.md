@@ -73,6 +73,7 @@ mission 1
 3. Compteur de drapeau + affichage drapeau + click gauche
 
 mission 2
-1. Game Over
-2. décor
-3. animation Game Over? 
+1. Matrice qui cache
+2. Game Over - animation Game Over? 
+3. décor
+4. 

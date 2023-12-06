@@ -2,9 +2,8 @@ let taille = 0;
 let nbbombe = 0;
 
 //affiche le tableau a l'ecran
-function afficheTab(taille, table, matrice,matriceH){
+function afficheTab(taille, table, matrice,matriceH,matriceB){
     table.innerHTML = ""; // efface le tableau pour mettre des nouvelles valeurs
-    let matrice=matrice;
     // affiche le tableau
     for (let i=0; i<taille; i++){ // pour chaque ligne 
     
@@ -88,7 +87,6 @@ function initTable(){
         }
         matriceHist.push(arrayvide);
     }
-
     // les bombes dans la matrice a des positions randoms
     while (nbbombe>0){
 
@@ -105,7 +103,7 @@ function initTable(){
     // taille,nbbombe = modeChoisi(); // taille du tableau 
 
     let matrice = Chiffres(matriceBombe, taille, taille)
-    afficheTab(taille, table, matrice,matriceHist);
+    afficheTab(taille, table, matrice,matriceHist,matriceBombe);
      
 }
 
@@ -188,5 +186,5 @@ function jeu(GameOver,matriceB,matrice,matriceH,i,j,table){
             console.log("Victoire");
         }
     }
-    afficheTab(length(matriceB),table,matrice,matriceH);
+    afficheTab(length(matriceB),table,matrice,matriceH,matriceB);
 }
