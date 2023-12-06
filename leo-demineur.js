@@ -4,7 +4,6 @@ let nbbombe = 0;
 //affiche le tableau a l'ecran
 function afficheTab(taille, table, matrice,matriceH){
     table.innerHTML = ""; // efface le tableau pour mettre des nouvelles valeurs
-    let matrice=matrice;
     // affiche le tableau
     for (let i=0; i<taille; i++){ // pour chaque ligne 
     
