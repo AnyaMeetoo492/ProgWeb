@@ -224,17 +224,31 @@ function matrice_egale(matA,matB){
     return res;
 }
 
+function popup(texte) {
+    alert(texte);
+    }
+
 // Lance le jeu
 // fini le jeu si on trouve toutes les bombes ou user a clique sur une bombe
 function jeu(GameOver,i,j){
     if (GameOver){
+        popup("Perdu");
         console.log("OVER");
+        modeChoisi();
+        ChangeBack();
+        initTable();
+        ResetDecompte();
     }
     else {
         matriceHistorique[i][j]=0;
         console.log(matrice_egale(matriceHistorique,matriceBombes));
         if (matrice_egale(matriceHistorique,matriceBombes)){
+            popup("Victoire");
             console.log("Victoire");
+            modeChoisi();
+            ChangeBack();
+            initTable();
+            ResetDecompte();
         }
     }
     afficheTab(table);
