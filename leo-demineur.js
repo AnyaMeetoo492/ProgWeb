@@ -189,8 +189,8 @@ function jeu(GameOver){
         console.log("OVER");
     }
     else {
-        matriceHistorique[i][j]=0;
-        if (matriceHistorique==matriceBombes){
+        document.matriceHistorique[i][j]=0;
+        if (document.matriceHistorique==document.matriceBombes){
             console.log("Victoire");
         }
     }
