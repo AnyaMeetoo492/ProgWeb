@@ -1,8 +1,10 @@
 let taille = 0;
 let nbbombe = 0;
+let matrice = [];
+
 
 //affiche le tableau a l'ecran
-function afficheTab(taille, table, matrice){
+function afficheTab(taille, table){
     table.innerHTML = ""; // efface le tableau pour mettre des nouvelles valeurs
     
     // affiche le tableau
@@ -15,10 +17,10 @@ function afficheTab(taille, table, matrice){
             // ajoute l'élement nécéssaire à chaque cellule du tableau
 
             if (matrice[i][j] == -1){ // bombe
-                Cell.innerHTML = "<button type='button' name='button' id='buttonhide' onclick='jeu(1,matrice[i][j])'>"+matrice[i][j]+"</button>"; 
+                Cell.innerHTML = "<button type='button' name='button' id='buttonhide' onclick='jeu(1,matrice[i][j])'></button>"; 
             }
             else { //chiffre
-                Cell.innerHTML = "<button type='button' name='button' id='buttonhide' onclick='jeu(0,matrice[i][j])'>"+matrice[i][j]+"</button>"; 
+                Cell.innerHTML = "<button type='button' name='button' id='buttonhide' onclick='jeu(0,matrice[i][j])'></button>"; 
             }
 
             Ligne.appendChild(Cell);
@@ -57,15 +59,13 @@ function initTable(){
     // let nbbombe = 10;
     const table = document.getElementById("tableNonCache"); // tableau affiché sur écran
 
-    let matriceBombe = []; // matrice des bombes
-
     // remplit la matrice de zeros --- difficile a creer une matrice de zeros 
     for (let l=0; l<taille; l++){
         let arrayzeros = [];
         for (let c=0; c<taille; c++){
             arrayzeros.push(0);
         }
-        matriceBombe.push(arrayzeros);
+        matrice.push(arrayzeros);
     }
 
     // les bombes dans la matrice a des positions randoms
@@ -74,8 +74,8 @@ function initTable(){
         let randomligne = Math.floor(Math.random() * taille);
         let randomcolonne =  Math.floor(Math.random() * taille);
 
-        if (matriceBombe[randomligne][randomcolonne] == 0){ // si pas de bommbe déjà
-             matriceBombe[randomligne][randomcolonne] = -1; // mettre une bombe
+        if (matrice[randomligne][randomcolonne] == 0){ // si pas de bommbe déjà
+             matrice[randomligne][randomcolonne] = -1; // mettre une bombe
              nbbombe--; 
         }
 
@@ -83,7 +83,7 @@ function initTable(){
 
     // taille,nbbombe = modeChoisi(); // taille du tableau 
 
-    let matrice = Chiffres(matriceBombe, taille, taille)
+    matrice = Chiffres(matrice, taille, taille)
     afficheTab(taille, table, matrice);
      
 }
@@ -108,7 +108,7 @@ function ResetDecompte(){
 }
 document.getElementById("Startbutton").addEventListener("click", ResetDecompte());
 
-/////////////////PROBLEMEEEEEEEEEE
+// Compte les nombres de bombes autour d'une case et update la matrice
 function Chiffres(matrice, maxLigne, maxColonne){
     for(let i = 0; i < maxLigne; i++){ //maxLigne est le num de la dernière ligne 
         for(let j = 0; j < maxColonne; j++){ //maxColonne est le num de la dernière colonne
@@ -119,9 +119,6 @@ function Chiffres(matrice, maxLigne, maxColonne){
                 let Jfin = 0;
                 if (i-1 >= 0){
                     Ideb = i - 1;
-                }
-                else{
-                    Ideb = i;
                 }
                 if (i+1 < maxLigne){
                     Ifin = i + 1;
@@ -159,6 +156,7 @@ function Chiffres(matrice, maxLigne, maxColonne){
 function jeu(GameOver,valeur){
     if (GameOver){
         console.log("OVER");
+        console.log(matrice)
     }
     else {
          
