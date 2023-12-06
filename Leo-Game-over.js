@@ -211,12 +211,17 @@ function Chiffres(matriceBombesChiffres, maxLigne, maxColonne){
 }
 
 function matrice_egale(matA,matB){
-    for (let i=0;i<length(matA);i++){
-        for (let j=0; j<length(matA[i];j++)){
-            if (matA[i][j]!=matB[i][j]) return False;
+    let i=0;
+    let j=0;
+    let res=1;
+    for (i=0;i<length(matA);i++){
+        for (j=0; j<length(matA[i]),j++){
+            if (matA[i][j]!=matB[i][j]){
+                res=0;
+            }
         }
     }
-    return True;
+    return res;
 }
 
 // Lance le jeu
