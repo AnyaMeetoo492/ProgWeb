@@ -3,6 +3,7 @@ let nbbombe = 0;
 let matriceBombesChiffres = [];
 let matriceHistorique = [];
 let matriceBombes = [];
+let table=[];
 let i=0;
 let j=0;
 
@@ -20,10 +21,10 @@ function afficheTab(table){
             // ajoute l'élement nécéssaire à chaque cellule du tableau
             if (matriceHistorique[i][j]==-1){
                 if (matriceBombesChiffres[i][j] == -1){ // bombe
-                    Cell.innerHTML = "<button type='button' name='button' id='buttonhide' onclick='jeu(1,table)'>"+matriceBombesChiffres[i][j]+"</button>"; 
+                    Cell.innerHTML = "<button type='button' name='button' id='buttonhide' onclick='jeu(1)'>"+matriceBombesChiffres[i][j]+"</button>"; 
                 }
                 else {
-                Cell.innerHTML = "<button type='button' name='button' id='buttonhide' onclick='jeu(0,table)'>"+matriceBombesChiffres[i][j]+"</button>";
+                Cell.innerHTML = "<button type='button' name='button' id='buttonhide' onclick='jeu(0)'>"+matriceBombesChiffres[i][j]+"</button>";
                 }
             }
             else {
@@ -73,7 +74,7 @@ function modeChoisi(){
 function initTable(){
     // let taille = 10;
     // let nbbombe = 10;
-    const table = document.getElementById("tableNonCache"); // tableau affiché sur écran
+    table = document.getElementById("tableNonCache"); // tableau affiché sur écran
 
     matriceBombesChiffres = [];
 
@@ -183,7 +184,7 @@ function Chiffres(matriceBombesChiffres, maxLigne, maxColonne){
 
 // Lance le jeu
 // fini le jeu si on trouve toutes les bombes ou user a clique sur une bombe
-function jeu(GameOver,i,j,table){
+function jeu(GameOver){
     if (GameOver){
         console.log("OVER");
     }
