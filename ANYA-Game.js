@@ -110,6 +110,27 @@ function ResetDecompte(){
 }
 document.getElementById("Startbutton").addEventListener("click", ResetDecompte());
 
+//changer l'image de fond
+let backgrounds = new Array(
+    'url(background-7277773_960_720.jpg)'
+    ,'url(hell-735995_960_720.jpg)'
+);
+
+function ChangeBack(){
+    let mode = document.getElementById("mode").value;
+    if (mode == "Easy"){
+        document.body.style.backgroundImage= 'url(background-7277773_960_720.jpg)';
+    }
+    else if (mode == "Medium"){
+        document.body.style.backgroundImage= 'url(pexels-photo-1118869.jpg)';
+    }
+    else {
+        document.body.style.backgroundImage= 'url(pexels-photo-216640.jpg)';
+    }
+    document.body.style.backgroundSize="cover";
+    document.body.style.backgroundPosition="center center";
+}
+
 // Compte les nombres de bombes autour d'une case et update la matrice
 function Chiffres(matrice, maxLigne, maxColonne){
     for(let i = 0; i < maxLigne; i++){ //maxLigne est le num de la dernière ligne 
