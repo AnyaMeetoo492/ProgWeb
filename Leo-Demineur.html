@@ -4,21 +4,21 @@
 <head>
     <title>Demineur</title>
     <link rel="stylesheet" href="Leo-Demineur.css">
-    <script type="text/javascript" src="leo-demineur.js"></script>
+    <script type="text/javascript" src="Leo-Game_over.js"></script>
 </head>
 
 <body>
 
-    <h1>Démineur</h1>
+    <h1>Demineur</h1>
 
         <label for="mode">Choisissez le mode:</label>
         <select name="mode" id="mode">
-            <option value="Easy">Easy</option>
-            <option value="Medium">Medium</option>
-            <option value="Hard">Hard</option>
+            <option id="Easy" value="Easy">Easy</option>
+            <option id="Medium" value="Medium">Medium</option>
+            <option id="Hard" value="Hard">Hard</option>
         </select>
     
-        <button type="button" id="Startbutton" onclick="modeChoisi(); initTable()">Start</button><!--; ResetDecompte()-->
+        <button type="button" id="Startbutton" onclick="modeChoisi(); ChangeBack(); initTable(); ResetDecompte()">Start</button>
 
         <!-- <h2 id="nbdrapeau">Drapeaux restant: 0</h2> -->
     
@@ -28,11 +28,9 @@
     <div>
         🚩 : <span id="flag">0</span>
     </div>
-
+    <br>
     <table border="1" id="tableNonCache">
     </table>
-    
-    <!--<script>jeu();</script>-->
     
 </body>
 
