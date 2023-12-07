@@ -132,14 +132,23 @@ function initTable(){
 //decompteur
 let decompte;
 function decompteur(){
-    let temps = 100;
+    let temps;
+    let mode = document.getElementById("mode").value;
+    if (mode == "Easy"){
+        temps = 100;
+    }
+    else if (mode == "Medium"){
+        temps = 500;
+    }
+    else {
+        temps = 1000;
+    }
     const timerElement = document.getElementById("timer");
     function Red_Temps(){
         timerElement.innerText = temps;
         let minutes = parseInt(temps / 60, 10)
         let secondes = parseInt(temps % 60, 10)
         temps = temps <= 0 ? 0 : temps - 1;
-        console.log('idle');
         }
     decompte = setInterval(Red_Temps,1000);//1000 c'est 1s, en gros ça fait red_temps toutes les 1s
 }
@@ -147,7 +156,7 @@ function ResetDecompte(){
     clearInterval(decompte);
     decompteur();
 }
-document.getElementById("Startbutton").addEventListener("click", ResetDecompte());
+//document.getElementById("Startbutton").addEventListener("click", ResetDecompte());
 
 //changer l'image de fond
 function ChangeBack(){
