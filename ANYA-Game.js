@@ -240,6 +240,12 @@ function popup(texte) {
 // fini le jeu si on trouve toutes les bombes ou user a clique sur une bombe
 function jeu(GameOver,i,j){
     if (GameOver){
+        for (i=0; i<taille; i++){ 
+            for (j=0; j<taille; j++){
+                matriceHistorique[i][j] -= matriceBombes[i][j];
+            }
+        }
+        afficheTab(table);
         popup("Perdu");
         console.log("OVER");
         modeChoisi();
