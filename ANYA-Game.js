@@ -21,7 +21,7 @@ function afficheTab(table){
             // ajoute l'élement nécéssaire à chaque cellule du tableau
             if (matriceHistorique[i][j]==-1){
                 if (matriceBombesChiffres[i][j] == -1){ // bombe
-                    Cell.innerHTML = "<button type='button' name='button' id='buttonhide' onclick='jeu(1,"+i+","+j+")'>"+matriceBombesChiffres[i][j]+"</button>"; 
+                    Cell.innerHTML = "<button type='button' name='button' id='buttonhide' onclick='jeu(1,"+i+","+j+")'></button>"; 
                 }
                 else {
                 Cell.innerHTML = "<button type='button' name='button' id='buttonhide' onclick='jeu(0,"+i+","+j+")'></button>";
@@ -32,7 +32,7 @@ function afficheTab(table){
                     Cell.innerHTML = "<button type='button' name='button' id='buttonrien'>"+matriceBombesChiffres[i][j]+"</button>"; 
                 }
                 else if (matriceBombesChiffres[i][j] ==-1){ // bombe
-                    Cell.innerHTML = "<button type='button' name='button' id='buttonbombe'>"+matriceBombesChiffres[i][j]+"</button>"; 
+                    Cell.innerHTML = "<button type='button' name='button' id='buttonbombe'></button>"; 
                 }
                 else {
                 Cell.innerHTML = "<button type='button' name='button' id='buttonchiffre'>"+matriceBombesChiffres[i][j]+"</button>";
@@ -135,21 +135,36 @@ function decompteur(){
     let temps;
     let mode = document.getElementById("mode").value;
     if (mode == "Easy"){
-        temps = 100;
+        temps = 10 ;
     }
     else if (mode == "Medium"){
         temps = 500;
     }
     else {
-        temps = 1000;
+        temps = 900;
     }
     const timerElement = document.getElementById("timer");
     function Red_Temps(){
-        timerElement.innerText = temps;
-        let minutes = parseInt(temps / 60, 10)
-        let secondes = parseInt(temps % 60, 10)
-        temps = temps <= 0 ? 0 : temps - 1;
+        let m = parseInt(temps / 60, 10);
+        let s = parseInt(temps % 60, 10);
+        if (m<10){
+            m = "0" + m;
         }
+        if (s<10){
+            s = "0" + s;
+        }
+        timerElement.innerText = m + ":" + s;
+        if (temps<=0){
+            temps = 0;
+        }
+        else{
+            temps--;
+        }
+        console.log(temps);
+        if (m==0 && s==0){
+            jeu(1,0,0);
+        }
+    }
     decompte = setInterval(Red_Temps,1000);//1000 c'est 1s, en gros ça fait red_temps toutes les 1s
 }
 function ResetDecompte(){
@@ -240,11 +255,6 @@ function popup(texte) {
 // fini le jeu si on trouve toutes les bombes ou user a clique sur une bombe
 function jeu(GameOver,i,j){
     if (GameOver){
-        for (i=0; i<taille; i++){ 
-            for (j=0; j<taille; j++){
-                matriceHistorique[i][j] -= matriceBombes[i][j];
-            }
-        }
         afficheTab(table);
         popup("Perdu");
         console.log("OVER");
