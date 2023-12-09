@@ -21,7 +21,7 @@ function afficheTab(table){
             // ajoute l'élement nécéssaire à chaque cellule du tableau
             if (matriceHistorique[i][j]==-1){
                 if (matriceBombesChiffres[i][j] == -1){ // bombe
-                    Cell.innerHTML = "<button type='button' name='button' id='buttonhide' onclick='jeu(1,"+i+","+j+")'>"+matriceBombesChiffres[i][j]+"</button>"; 
+                    Cell.innerHTML = "<button type='button' name='button' id='buttonhide' onclick='jeu(1,"+i+","+j+")'<"+matriceBombesChiffres[i][j]+">/button>"; 
                 }
                 else {
                 Cell.innerHTML = "<button type='button' name='button' id='buttonhide' onclick='jeu(0,"+i+","+j+")'></button>";
@@ -156,7 +156,6 @@ function ResetDecompte(){
     clearInterval(decompte);
     decompteur();
 }
-//document.getElementById("Startbutton").addEventListener("click", ResetDecompte());
 
 //changer l'image de fond
 function ChangeBack(){
