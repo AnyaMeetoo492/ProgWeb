@@ -176,15 +176,15 @@ function ResetDecompte(){
 function ChangeBack(){
     let mode = document.getElementById("mode").value;
     if (mode == "Easy"){
-        document.body.style.backgroundImage= 'url(background-7277773_960_720.jpg)';
+        document.body.style.backgroundImage= 'url(easy.jpg)';
         document.body.style.color = 'black';
     }
     else if (mode == "Medium"){
-        document.body.style.backgroundImage= 'url(pexels-photo-1118869.jpg)';
+        document.body.style.backgroundImage= 'url(medium.jpg)';
         document.body.style.color = 'white';
     }
     else {
-        document.body.style.backgroundImage= 'url(pexels-photo-216640.jpg)';
+        document.body.style.backgroundImage= 'url(hell.jpg)';
         document.body.style.color = 'white';
     }
     document.body.style.backgroundSize="cover";
