@@ -28,7 +28,7 @@ function afficheTab(table){
                 }
             }
             else {
-                if (matriceBombesChiffres[i][j] ==0){ // bombe
+                if (matriceBombesChiffres[i][j] ==0){
                     Cell.innerHTML = "<button type='button' name='button' id='buttonrien'>"+matriceBombesChiffres[i][j]+"</button>"; 
                 }
                 else if (matriceBombesChiffres[i][j] ==-1){ // bombe
