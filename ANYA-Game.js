@@ -135,10 +135,10 @@ function decompteur(){
     let temps;
     let mode = document.getElementById("mode").value;
     if (mode == "Easy"){
-        temps = 10 ;
+        temps = 120 ;
     }
     else if (mode == "Medium"){
-        temps = 500;
+        temps = 420;
     }
     else {
         temps = 900;
