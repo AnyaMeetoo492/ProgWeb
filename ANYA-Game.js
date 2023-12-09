@@ -255,38 +255,148 @@ function jeu(GameOver,i,j){
 //decompteur
 let decompte;
 function decompteur(){
-    let temps = 100;
+    let temps;
+    let mode = document.getElementById("mode").value;
+    if (mode == "Easy"){
+        temps = 120 ;
+    }
+    else if (mode == "Medium"){
+        temps = 420;
+    }
+    else {
+        temps = 900;
+    }
     const timerElement = document.getElementById("timer");
     function Red_Temps(){
-        timerElement.innerText = temps;
-        let minutes = parseInt(temps / 60, 10)
-        let secondes = parseInt(temps % 60, 10)
-        temps = temps <= 0 ? 0 : temps - 1;
-        console.log('idle');
+        let m = parseInt(temps / 60, 10);
+        let s = parseInt(temps % 60, 10);
+        if (m<10){
+            m = "0" + m;
         }
+        if (s<10){
+            s = "0" + s;
+        }
+        timerElement.innerText = m + ":" + s;
+        if (temps<=0){
+            temps = 0;
+        }
+        else{
+            temps--;
+        }
+        console.log(temps);
+        if (m==0 && s==0){
+            jeu(1,0,0);
+        }
+    }
     decompte = setInterval(Red_Temps,1000);//1000 c'est 1s, en gros ça fait red_temps toutes les 1s
 }
 function ResetDecompte(){
     clearInterval(decompte);
     decompteur();
 }
-document.getElementById("Startbutton").addEventListener("click", ResetDecompte());
 
 //changer l'image de fond
 function ChangeBack(){
     let mode = document.getElementById("mode").value;
     if (mode == "Easy"){
-        document.body.style.backgroundImage= 'url(background-7277773_960_720.jpg)';
+        document.body.style.backgroundImage= 'url(easy.jpg)';
         document.body.style.color = 'black';
     }
     else if (mode == "Medium"){
-        document.body.style.backgroundImage= 'url(pexels-photo-1118869.jpg)';
+        document.body.style.backgroundImage= 'url(medium.jpg)';
         document.body.style.color = 'white';
     }
     else {
-        document.body.style.backgroundImage= 'url(pexels-photo-216640.jpg)';
+        document.body.style.backgroundImage= 'url(hell.jpg)';
         document.body.style.color = 'white';
     }
     document.body.style.backgroundSize="cover";
 }
 
+// Compte les nombres de bombes autour d'une case et update la matriceBombesChiffres
+function Chiffres(matriceBombesChiffres, maxLigne, maxColonne){
+    for(let i = 0; i < maxLigne; i++){ //maxLigne est le num de la dernière ligne 
+        for(let j = 0; j < maxColonne; j++){ //maxColonne est le num de la dernière colonne
+            if(matriceBombesChiffres[i][j] == -1){
+                let Ideb = 0;
+                let Ifin = 0;
+                let Jdeb = 0;
+                let Jfin = 0;
+                if (i-1 >= 0){
+                    Ideb = i - 1;
+                }
+                if (i+1 < maxLigne){
+                    Ifin = i + 1;
+                }
+                else{
+                    Ifin = i;
+                }
+                if (j-1 >= 0){
+                    Jdeb = j - 1;
+                }
+                else{
+                    Jdeb = j;
+                }
+                if (j+1 < maxColonne){
+                    Jfin = j + 1;
+                }
+                else{
+                    Jfin = j;
+                }
+                for(let l = Ideb; l<=Ifin ; l++){
+                    for(let c = Jdeb; c<=Jfin; c++){
+                        if(matriceBombesChiffres[l][c]!=-1 && matriceBombesChiffres[l][c]<9){
+                            matriceBombesChiffres[l][c] = matriceBombesChiffres[l][c] + 1;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    return matriceBombesChiffres;
+}
+
+function matrice_egale(matA,matB){
+    let i=0;
+    let j=0;
+    let res=1;
+    for (i=0;i<matA.length;i++){
+        for (j=0;j<matA[i].length;j++){
+            if (matA[i][j]!=matB[i][j]){
+                res=0;
+            }
+        }
+    }
+    return res;
+}
+
+function popup(texte) {
+    alert(texte);
+    }
+
+// Lance le jeu
+// fini le jeu si on trouve toutes les bombes ou user a clique sur une bombe
+function jeu(GameOver,i,j){
+    if (GameOver){
+        afficheTab(table);
+        popup("Perdu");
+        console.log("OVER");
+        modeChoisi();
+        ChangeBack();
+        initTable();
+        ResetDecompte();
+    }
+    else {
+        matriceHistorique[i][j]=0;
+        console.log(matrice_egale(matriceHistorique,matriceBombes));
+        if (matrice_egale(matriceHistorique,matriceBombes)){
+            popup("Victoire");
+            console.log("Victoire");
+            modeChoisi();
+            ChangeBack();
+            initTable();
+            ResetDecompte();
+        }
+    }
+    afficheTab(table);
+}
