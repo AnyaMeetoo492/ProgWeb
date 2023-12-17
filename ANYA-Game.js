@@ -203,55 +203,90 @@ function Chiffres(matriceBombesChiffres, maxLigne, maxColonne){
     }
 }
 
-
-// marche pas snif
-// Affiche tous les zeors au voisinage de la case zero clique
-function afficheZeros(matriceHistorique, i, j) {
-    directions = 0;
-    i_zeros = i; // ligne
-    j_zeros = j; // colonne
-    while (directions < 8) {
-        while (i_zeros >= 0 && i_zeros < taille && j_zeros >= 0 && j_zeros < taille) { // tant qu'on est sur un zero
-            matriceHistorique[i_zeros][j_zeros] = 0;
-            i_zeros = i; // ligne
-            j_zeros = j; // colonne
-            console.log(matriceHistorique);
-            if (directions == 0) { // on va a gauche
-                j_zeros = j_zeros - 1;
-            }
-            if (directions == 1) { // on va a droite
-                j_zeros = j_zeros + 1;
-            }
-            if (directions == 2) { // on va en haut
-                i_zeros = i_zeros - 1;
-            }
-            if (directions == 3) { // on va en bas
-                i_zeros = i_zeros + 1;
-            }
-
-            if (directions == 4) { // on va en haut à gauche
-                i_zeros = i_zeros - 1;
-                j_zeros = j_zeros - 1;
-            }
-
-            if (directions == 5) { // on va en haut à droite
-                i_zeros = i_zeros - 1;
-                j_zeros = j_zeros + 1;
-            }
-
-            if (directions == 6) { // on va en bas à gauche
-                i_zeros = i_zeros + 1;
-                j_zeros = j_zeros - 1;
-            }
-
-            if (directions == 7) { // on va en bas à droite
-                i_zeros = i_zeros + 1;
-                j_zeros = j_zeros + 1;
+// Affiche tous les zeros au voisinage de la case zero clique
+function afficheZeros(matrice, i, j) {
+    const stack = [{i, j}]; //initialisation d'une pile contenant les lignes et colonnes
+    if(matrice[i][j] !=0){ // si la cellule est différente de zéro alors on ne fait pas la fonction
+        return;
+    }
+    const visited = []; //matrice contenant les cases à zéro
+    while (stack.length > 0) {
+        const current = stack.pop(); //supprime le dernier élément de la pile et le retourne dans current
+        visited.push(current); //ajoute current à la fin de visited
+        const {i, j} = current;
+        for (let ligne = -1; ligne < 2; ligne++) {
+            for (let colonne = -1; colonne< 2; colonne++) {
+                //si on atteint les bords
+                if (i + ligne < 0 || j + colonne < 0) {
+                    continue;
+                }
+                if (i + ligne >= matrice.length || j + colonne >= matrice.length) { 
+                    continue;
+                }
+                // si la cellule suivante est différente de zéro alors on continue
+                if (matrice[i + ligne][j + colonne] != 0) {
+                    continue;
+                }
+                //teste si au moins un élément de visited a pour ligne la ligne suivante ou pour colonne la colonne suivante
+                if (visited.some((v) => v.i == i + ligne && v.j == j + colonne)) { 
+                    continue;
+                }
+                stack.push({ //ajoute les lignes i+1 et j+1 à la fin de la pile
+                    i : i + ligne,
+                    j : j + colonne
+                });
             }
         }
-        directions++; // change de direction
     }
+    for (visit of visited){
+        matriceHistorique[visit.i][visit.j] = 0; // met les cases de visited dans la matrice historique à zero
+    };
 }
+
+//     directions = 0;
+//     i_zeros = i; // ligne
+//     j_zeros = j; // colonne
+//     while (directions < 8) {
+//         while (i_zeros >= 0 && i_zeros < taille && j_zeros >= 0 && j_zeros < taille) { // tant qu'on est sur un zero
+//             matriceHistorique[i_zeros][j_zeros] = 0;
+//             i_zeros = i; // ligne
+//             j_zeros = j; // colonne
+//             console.log(matriceHistorique);
+//             if (directions == 0) { // on va a gauche
+//                 j_zeros = j_zeros - 1;
+//             }
+//             if (directions == 1) { // on va a droite
+//                 j_zeros = j_zeros + 1;
+//             }
+//             if (directions == 2) { // on va en haut
+//                 i_zeros = i_zeros - 1;
+//             }
+//             if (directions == 3) { // on va en bas
+//                 i_zeros = i_zeros + 1;
+//             }
+
+//             if (directions == 4) { // on va en haut à gauche
+//                 i_zeros = i_zeros - 1;
+//                 j_zeros = j_zeros - 1;
+//             }
+
+//             if (directions == 5) { // on va en haut à droite
+//                 i_zeros = i_zeros - 1;
+//                 j_zeros = j_zeros + 1;
+//             }
+
+//             if (directions == 6) { // on va en bas à gauche
+//                 i_zeros = i_zeros + 1;
+//                 j_zeros = j_zeros - 1;
+//             }
+
+//             if (directions == 7) { // on va en bas à droite
+//                 i_zeros = i_zeros + 1;
+//                 j_zeros = j_zeros + 1;
+//             }
+//         }
+//         directions++; // change de direction
+//     }
 
 // Comparaison entre 2 matrices
 function matrice_egale(matA,matB){
@@ -280,9 +315,6 @@ function gestion_cliques(event,fin,i,j){
         switch (event.which) {
             case 1: //Clique gauche
                 boubaloo = "G";
-                // if (matriceBombesChiffres[i][j]==0){
-                //     afficheZeros(matriceHistorique,i,j);
-                // }
                 jeu(fin,i,j); 
                 break;
             case 2: //clique milieu
@@ -332,6 +364,7 @@ function jeu(GameOver,i,j){
     }
     else { // si c'est un chiffre
         matriceHistorique[i][j] = 0; // update la matrice de cliques, on a clique sur la case
+        afficheZeros(matriceBombesChiffres,i,j);
         // afficheZeros(matriceHistorique,i,j);
         if (matrice_egale(matriceHistorique,matriceBombes)){ // si on a clique sur toutes les cases sauf les bombes, on a gagne
             gagne();
