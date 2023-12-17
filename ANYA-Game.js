@@ -33,7 +33,7 @@ function afficheTab(table){
                     bouton.setAttribute("name", "button");
                     bouton.setAttribute("id", "buttonhide");
                     bouton.onclick = function() {jeu(1, i2 ,j2)};
-                    bouton.innerText = matriceBombesChiffres[i][j];
+                    //bouton.innerText = matriceBombesChiffres[i][j];
                     Cell.appendChild(bouton); 
                 }
                 else { // si c'est un chiffre
@@ -242,51 +242,6 @@ function afficheZeros(matrice, i, j) {
         matriceHistorique[visit.i][visit.j] = 0; // met les cases de visited dans la matrice historique à zero
     };
 }
-
-//     directions = 0;
-//     i_zeros = i; // ligne
-//     j_zeros = j; // colonne
-//     while (directions < 8) {
-//         while (i_zeros >= 0 && i_zeros < taille && j_zeros >= 0 && j_zeros < taille) { // tant qu'on est sur un zero
-//             matriceHistorique[i_zeros][j_zeros] = 0;
-//             i_zeros = i; // ligne
-//             j_zeros = j; // colonne
-//             console.log(matriceHistorique);
-//             if (directions == 0) { // on va a gauche
-//                 j_zeros = j_zeros - 1;
-//             }
-//             if (directions == 1) { // on va a droite
-//                 j_zeros = j_zeros + 1;
-//             }
-//             if (directions == 2) { // on va en haut
-//                 i_zeros = i_zeros - 1;
-//             }
-//             if (directions == 3) { // on va en bas
-//                 i_zeros = i_zeros + 1;
-//             }
-
-//             if (directions == 4) { // on va en haut à gauche
-//                 i_zeros = i_zeros - 1;
-//                 j_zeros = j_zeros - 1;
-//             }
-
-//             if (directions == 5) { // on va en haut à droite
-//                 i_zeros = i_zeros - 1;
-//                 j_zeros = j_zeros + 1;
-//             }
-
-//             if (directions == 6) { // on va en bas à gauche
-//                 i_zeros = i_zeros + 1;
-//                 j_zeros = j_zeros - 1;
-//             }
-
-//             if (directions == 7) { // on va en bas à droite
-//                 i_zeros = i_zeros + 1;
-//                 j_zeros = j_zeros + 1;
-//             }
-//         }
-//         directions++; // change de direction
-//     }
 
 // Comparaison entre 2 matrices
 function matrice_egale(matA,matB){
