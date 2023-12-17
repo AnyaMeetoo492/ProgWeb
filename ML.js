@@ -6,11 +6,6 @@ let matriceHistorique = []; // matrice qui sauvegarde les cases cliquees du user
 let matriceBombes = []; // matrice des positions des bombes
 let table = []; // table affichee en HTML
 
-// NOTE
-// Bombes represente avec -1
-
-
-//affiche le tableau a l'ecran
 function afficheTab(table){
     document.getElementById("countdrapeau").innerHTML = draps;
     table.innerHTML = ""; // efface le tableau pour mettre des nouvelles valeurs
@@ -276,7 +271,7 @@ return(draps, compteurbombe);
 
 // Si le user a perdu le jeu, montre le score et reset le jeu
 function perdu(){
-    popup("Perdu");
+    //popup("Perdu");
     console.log("OVER");
     modeChoisi();
     ChangeBack();
@@ -374,3 +369,7 @@ function ChangeBack(){
     }
     document.body.style.backgroundSize="cover";
 }
+
+
+
+
