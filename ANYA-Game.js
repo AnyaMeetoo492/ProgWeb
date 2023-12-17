@@ -27,35 +27,32 @@ function afficheTab(table){
             let Cell = document.createElement("TD"); // pour chaque case sur la ligne du tableau
             // ajoute l'élement nécéssaire à chaque cellule du tableau
             if (matriceHistorique[i][j]==-1){ // si la case n'a pas ete cliquee
-                if (matriceBombesChiffres[i][j] == -1){ // si c'est une bombe
-                    Cell.innerHTML = "<button type='button' name='button' id='buttonhide' onclick='jeu(1,"+i+","+j+")'>"+matriceBombesChiffres[i][j]+"</button>"; 
-                    // const bouton = document.createElement("button"); 
-                    // bouton.setAttribute("type", "button");
-                    // bouton.setAttribute("name", "button");
-                    // bouton.setAttribute("id", "buttonhide");
-                    // bouton.onclick = function() {jeu(1, i2 ,j2)};
-                    // bouton.innerText = matriceBombesChiffres[i][j];
-                    // Cell.appendChild(bouton); 
+                if (matriceBombesChiffres[i][j] == -1){ // si c'est une bombe 
+                    const bouton = document.createElement("button"); 
+                    bouton.setAttribute("type", "button");
+                    bouton.setAttribute("name", "button");
+                    bouton.setAttribute("id", "buttonhide");
+                    bouton.onclick = function() {jeu(1, i2 ,j2)};
+                    bouton.innerText = matriceBombesChiffres[i][j];
+                    Cell.appendChild(bouton); 
                 }
                 else { // si c'est un chiffre
-                Cell.innerHTML = "<button type='button' name='button' id='buttonhide' onclick='jeu(0,"+i+","+j+")'></button>";
-                // const bouton = document.createElement("button"); 
-                // bouton.setAttribute("type", "button");
-                // bouton.setAttribute("name", "button");
-                // bouton.setAttribute("id", "buttonhide");
-                // bouton.onclick = function () {jeu(0, i2 ,j2)};
-                // Cell.appendChild(bouton); 
+                const bouton = document.createElement("button"); 
+                bouton.setAttribute("type", "button");
+                bouton.setAttribute("name", "button");
+                bouton.setAttribute("id", "buttonhide");
+                bouton.onclick = function () {jeu(0, i2 ,j2)};
+                Cell.appendChild(bouton); 
                 }
             }
             else { // si la case a deja ete cliquee
                 if (matriceBombesChiffres[i][j] == 0){ // si c'est un 0
-                    Cell.innerHTML = "<button type='button' name='button' id='buttonrien'>"+matriceBombesChiffres[i][j]+"</button>"; 
-                    // const bouton = document.createElement("button"); 
-                    // bouton.setAttribute("type", "button");
-                    // bouton.setAttribute("name", "button");
-                    // bouton.setAttribute("id", "buttonrien");
-                    // bouton.innerText = matriceBombesChiffres[i][j];
-                    // Cell.appendChild(bouton); 
+                    const bouton = document.createElement("button"); 
+                    bouton.setAttribute("type", "button");
+                    bouton.setAttribute("name", "button");
+                    bouton.setAttribute("id", "buttonrien");
+                    bouton.innerText = matriceBombesChiffres[i][j];
+                    Cell.appendChild(bouton); 
                 }
                 else if (matriceBombesChiffres[i][j] == -1){ // si c'est une bombe
                     const bouton = document.createElement("button"); 
