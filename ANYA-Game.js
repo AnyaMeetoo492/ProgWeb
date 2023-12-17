@@ -1,5 +1,6 @@
 let taille = 0; // taille de la grille
 let nbbombe = 0; // nombre de bombes dans la grille
+let draps = 0;
 let matriceBombesChiffres = []; // matrice contenant les bombes et les chiffres (nb de bombes au voisinage de la case)
 let matriceHistorique = []; // matrice qui sauvegarde les cases cliquees du user
 let matriceBombes = []; // matrice des positions des bombes
@@ -11,6 +12,7 @@ let table = []; // table affichee en HTML
 
 //affiche le tableau a l'ecran
 function afficheTab(table){
+    document.getElementById("countdrapeau").innerHTML = draps;
     table.innerHTML = ""; // efface le tableau pour mettre des nouvelles valeurs
     // affiche le tableau
     let i=0; // ligne 0
@@ -59,16 +61,19 @@ function modeChoisi(){
     if (mode == "Easy"){
         taille = 5;
         nbbombe = 2;
+        draps = 2;
     }
     else if (mode == "Medium"){
         taille = 14;
         nbbombe = 40;
+        draps = 40;
     }
     else {
         taille = 20;
         nbbombe = 99;
+        draps = 99;
     }
-    return (taille,nbbombe);
+    return (taille,nbbombe, draps);
 
 }
 
@@ -215,6 +220,31 @@ function matrice_egale(matA,matB){
 function popup(texte) {
     alert(texte);
 }
+
+function gestion_cliques(event){
+    var boubaloo;
+
+if (event.which) {
+    switch (event.which) {
+        case 1: //Clique gauche
+            boubaloo = "G";
+            break;
+        case 2: //clique milieu
+            boubaloo = "M";
+            break;
+        case 3: //clique droit
+            boubaloo = "D";
+            if (draps != 0) {
+                draps -= 1;
+            }
+            break;
+    }
+}
+alert(boubaloo);
+document.getElementById("countdrapeau").innerHTML = draps;
+return(draps, compteurbombe);
+}
+
 
 // Si le user a perdu le jeu, montre le score et reset le jeu
 function perdu(){
