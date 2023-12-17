@@ -26,15 +26,16 @@ function afficheTab(table){
             // ajoute l'élement nécéssaire à chaque cellule du tableau
             if (matriceHistorique[i][j]==-1){ // si la case n'a pas ete cliquee
                 if (matriceBombesChiffres[i][j] == -1){ // si c'est une bombe
-                    Cell.innerHTML = "<button type='button' name='button' id='buttonhide' onclick='jeu(1,"+i+","+j+")'>"+matriceBombesChiffres[i][j]+"</button>"; 
+                    Cell.innerHTML = "<button type='button' name='button' id='buttonhide' onmouseup='gestion_cliques(event,1,"+i+","+j+")'>"+matriceBombesChiffres[i][j]+"</button>"; 
                 }
                 else { // si c'est un chiffre
-                Cell.innerHTML = "<button type='button' name='button' id='buttonhide' onclick='jeu(0,"+i+","+j+")'></button>";
+                Cell.innerHTML = "<button type='button' name='button' id='buttonhide' onmouseup='gestion_cliques(event,0,"+i+","+j+")'></button>";
                 }
             }
             else { // si la case a deja ete cliquee
                 if (matriceBombesChiffres[i][j] == 0){ // si c'est un 0
-                    Cell.innerHTML = "<button type='button' name='button' id='buttonrien'>"+matriceBombesChiffres[i][j]+"</button>"; 
+                    //afficheZeros(matriceHistorique, i, j);
+                    Cell.innerHTML = "<button type='button' name='button' id='buttonrien'></button>"; 
                 }
                 else if (matriceBombesChiffres[i][j] == -1){ // si c'est une bombe
                     Cell.innerHTML = "<button type='button' name='button' id='buttonbombe'>"+matriceBombesChiffres[i][j]+"</button>"; 
@@ -175,31 +176,55 @@ function Chiffres(matriceBombesChiffres, maxLigne, maxColonne){
     }
 }
 
-// ANYA : MARCHE PAS, PAS TOUCHE
+
+// marche pas snif
 // Affiche tous les zeors au voisinage de la case zero clique
-// function afficheZeros(matriceHistorique, i, j) {
-//     directions = 0;
-//     while (directions < 4) {
-//         i_zeros = i;
-//         j_zeros = j;
-//         while (matriceBombesChiffres[i][j] == 0 && i >= 0 && i < taille && j >= 0 && j < taille) { // tant qu'on est sur un zero
-//             matriceHistorique[i_zeros][j_zeros] = 0;
-//             if (directions = 0) { // on va a gauche
-//                 i_zeros = i_zeros - 1;
-//             }
-//             if (directions = 1) { // on va a droite
-//                 i_zeros = i_zeros + 1;
-//             }
-//             if (directions = 2) { // on va en haut
-//                 j_zeros = j_zeros - 1;
-//             }
-//             if (directions = 3) { // on va en bas
-//                 j_zeros = j_zeros + 1;
-//             }
-//         }
-//         directions++; // change de direction
-//     }
-// }
+function afficheZeros(matriceHistorique, i, j) {
+    directions = 0;
+    i_zeros = i; // ligne
+    j_zeros = j; // colonne
+    while (directions < 8) {
+        while (i_zeros >= 0 && i_zeros < taille && j_zeros >= 0 && j_zeros < taille) { // tant qu'on est sur un zero
+            matriceHistorique[i_zeros][j_zeros] = 0;
+            i_zeros = i; // ligne
+            j_zeros = j; // colonne
+            console.log(matriceHistorique);
+            if (directions == 0) { // on va a gauche
+                j_zeros = j_zeros - 1;
+            }
+            if (directions == 1) { // on va a droite
+                j_zeros = j_zeros + 1;
+            }
+            if (directions == 2) { // on va en haut
+                i_zeros = i_zeros - 1;
+            }
+            if (directions == 3) { // on va en bas
+                i_zeros = i_zeros + 1;
+            }
+
+            if (directions == 4) { // on va en haut à gauche
+                i_zeros = i_zeros - 1;
+                j_zeros = j_zeros - 1;
+            }
+
+            if (directions == 5) { // on va en haut à droite
+                i_zeros = i_zeros - 1;
+                j_zeros = j_zeros + 1;
+            }
+
+            if (directions == 6) { // on va en bas à gauche
+                i_zeros = i_zeros + 1;
+                j_zeros = j_zeros - 1;
+            }
+
+            if (directions == 7) { // on va en bas à droite
+                i_zeros = i_zeros + 1;
+                j_zeros = j_zeros + 1;
+            }
+        }
+        directions++; // change de direction
+    }
+}
 
 // Comparaison entre 2 matrices
 function matrice_egale(matA,matB){
@@ -221,26 +246,32 @@ function popup(texte) {
     alert(texte);
 }
 
-function gestion_cliques(event){
+function gestion_cliques(event,fin,i,j){
     var boubaloo;
 
-if (event.which) {
-    switch (event.which) {
-        case 1: //Clique gauche
-            boubaloo = "G";
-            break;
-        case 2: //clique milieu
-            boubaloo = "M";
-            break;
-        case 3: //clique droit
-            boubaloo = "D";
-            if (draps != 0) {
-                draps -= 1;
-            }
-            break;
-    }
+    if (event.which) {
+        switch (event.which) {
+            case 1: //Clique gauche
+                boubaloo = "G";
+                // if (matriceBombesChiffres[i][j]==0){
+                //     afficheZeros(matriceHistorique,i,j);
+                // }
+                jeu(fin,i,j); 
+                break;
+            case 2: //clique milieu
+                boubaloo = "M";
+                break;
+            case 3: //clique droit
+                boubaloo = "D";
+                if (draps != 0) {
+                    draps -= 1;
+                }
+                break;
+        }
 }
-alert(boubaloo);
+
+//alert(boubaloo);
+afficheTab(table);
 document.getElementById("countdrapeau").innerHTML = draps;
 return(draps, compteurbombe);
 }
