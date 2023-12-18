@@ -72,3 +72,29 @@ table{
   height : 50px;
   background : grey;
 }
+
+/* .sel {
+  font-size: 1rem;
+  display: inline-block;
+  width: 100px;
+  background-color: white;
+  position: relative;
+  cursor: pointer;
+}
+
+nav {
+  border-bottom: 1px solid black;
+}
+
+.mode {
+  display: inline-block;
+}
+
+.mode a::after {
+  display: inline-block;
+  color: #000;
+  content: '>';
+  font-size: 80%;
+  font-weight: bold;
+  padding: 0 3px;
+} */
