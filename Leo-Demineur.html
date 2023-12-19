@@ -4,13 +4,17 @@
 <head>
     <title>Demineur</title>
     <link rel="stylesheet" href="Leo-Demineur.css">
-    <script type="text/javascript" src="Leo-Game-over.js"></script>
+    <script type="text/javascript" src="leo-demineur.js"></script>
 </head>
 
-<body>
-
+<body oncontextmenu="return false" > <!--fonction permet de retirer le click droit--> 
+    
     <h1>Demineur</h1>
-
+        <!-- <nav class="mode">
+            <a id="Easy">Easy</a>
+            <a id="Medium">Medium</a>
+            <a id="Hard">Hard</a>
+        </nav> -->
         <label for="mode">Choisissez le mode:</label>
         <select name="mode" id="mode">
             <option id="Easy" value="Easy">Easy</option>
@@ -26,12 +30,13 @@
         Temps restant : <span id="timer"></span>
     </div>
     <div>
-        🚩 : <span id="flag">0</span>
+        🚩 :  <label id="countdrapeau"><script>gestion_cliques(event)</script></label>
     </div>
     <br>
     <table border="1" id="tableNonCache">
     </table>
-    
+    <input type="button" value="Cliquez bande de tortipousses" onmouseup="gestion_cliques(event)"/>
+
 </body>
 
 </html>
