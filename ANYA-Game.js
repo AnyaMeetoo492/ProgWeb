@@ -229,6 +229,11 @@ function afficheZeros(matrice, i, j) {
         const {i, j} = current;
         for (let ligne = -1; ligne < 2; ligne++) {
             for (let colonne = -1; colonne< 2; colonne++) {
+                //enleve les drapeaux posés sur les cases zéros
+                if (matriceDraps[i][j] == 1) {
+                    draps += 1;
+                    matriceDraps[i][j] = 0;
+                }
                 //si on atteint les bords
                 if (i + ligne < 0 || j + colonne < 0) {
                     continue;
@@ -321,13 +326,14 @@ function popup(texte) {
     alert(texte);
 }
 
-function gestion_cliques(event,fin,i,j, bouton){
+function gestion_cliques(event,fin,i,j){
     var boubaloo;
 
     if (event.which) {
         switch (event.which) {
             case 1: //Clique gauche
                 boubaloo = "G";
+                //enleve les drapeaux posés sur les cases zéros
                 if (matriceDraps[i][j] == 1) {
                     draps += 1;
                     matriceDraps[i][j] = 0;
@@ -343,17 +349,17 @@ function gestion_cliques(event,fin,i,j, bouton){
                 if (matriceDraps[i][j] == 1) {
                     draps += 1;
                     matriceDraps[i][j] = 0;
-                    //bouton.style = "#buttondrapeau";
                 }
                 else if (matriceDraps[i][j] == 0) {
                     if (draps > 0) {
                     draps -= 1;
-                    matriceDraps[i][j] = 1;
-                    //bouton.style = "#buttondrapeau";
-                }}
+                    matriceDraps[i][j] = 1;      
+                    }
+                }
+                    
                 break;
-        }
-}
+         }
+    }
 
 //alert(boubaloo);
 afficheTab(table);
