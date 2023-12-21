@@ -5,6 +5,7 @@ let matriceBombesChiffres = []; // matrice contenant les bombes et les chiffres 
 let matriceHistorique = []; // matrice qui sauvegarde les cases cliquees du user
 let matriceBombes = []; // matrice des positions des bombes
 let table = []; // table affichee en HTML
+let matriceDraps = [];
 
 // NOTE
 // Bombes represente avec -1
@@ -33,6 +34,7 @@ function afficheTab(table){
                     bouton.setAttribute("name", "button");
                     bouton.setAttribute("id", "buttonhide");
                     bouton.onclick = function() {jeu(1, i2 ,j2)};
+                    bouton.onmouseup= function() {gestion_cliques(event, 1, i2 ,j2, bouton)}
                     bouton.innerText = matriceBombesChiffres[i][j];
                     Cell.appendChild(bouton); 
                 }
@@ -42,6 +44,7 @@ function afficheTab(table){
                 bouton.setAttribute("name", "button");
                 bouton.setAttribute("id", "buttonhide");
                 bouton.onclick = function () {jeu(0, i2 ,j2)};
+                bouton.onmouseup= function() {gestion_cliques(event, 0, i2 ,j2, bouton)}
                 Cell.appendChild(bouton); 
                 }
             }
@@ -113,6 +116,7 @@ function initTable(){
     matriceBombesChiffres = [];
     matriceBombes = [];
     matriceHistorique = [];
+    matriceDraps = [];
 
     // remplit la matriceBombesChiffres de zeros
     for (let l=0; l<taille; l++){
@@ -140,6 +144,15 @@ function initTable(){
         }
         matriceHistorique.push(arrayvide);
     }
+
+         // remplit la matriceDraps de 0
+         for (let l=0; l<taille; l++){
+            let arrayvide = [];
+            for (let c=0; c<taille; c++){
+                arrayvide.push(0);
+            }
+            matriceDraps.push(arrayvide);
+        }
 
     // les bombes dans la matriceBombesChiffres a des positions randoms et on copie les positions dans matriceBombes
     while (nbbombe>0){
@@ -308,13 +321,17 @@ function popup(texte) {
     alert(texte);
 }
 
-function gestion_cliques(event,fin,i,j){
+function gestion_cliques(event,fin,i,j, bouton){
     var boubaloo;
 
     if (event.which) {
         switch (event.which) {
             case 1: //Clique gauche
                 boubaloo = "G";
+                if (matriceDraps[i][j] == 1) {
+                    draps += 1;
+                    matriceDraps[i][j] = 0;
+                }
                 jeu(fin,i,j); 
                 break;
             case 2: //clique milieu
@@ -322,9 +339,18 @@ function gestion_cliques(event,fin,i,j){
                 break;
             case 3: //clique droit
                 boubaloo = "D";
-                if (draps != 0) {
-                    draps -= 1;
+                
+                if (matriceDraps[i][j] == 1) {
+                    draps += 1;
+                    matriceDraps[i][j] = 0;
+                    //bouton.style = "#buttondrapeau";
                 }
+                else if (matriceDraps[i][j] == 0) {
+                    if (draps > 0) {
+                    draps -= 1;
+                    matriceDraps[i][j] = 1;
+                    //bouton.style = "#buttondrapeau";
+                }}
                 break;
         }
 }
@@ -437,3 +463,8 @@ function ChangeBack(){
     }
     document.body.style.backgroundSize="cover";
 }
+
+
+
+
+
