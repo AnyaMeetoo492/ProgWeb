@@ -349,11 +349,15 @@ function gestion_cliques(event,fin,i,j){
                 if (matriceDraps[i][j] == 1) {
                     draps += 1;
                     matriceDraps[i][j] = 0;
+                    //document.getElementById("buttonhide").style.background = rgb(255, 4, 108); MARCHE PAS
+                    
                 }
                 else if (matriceDraps[i][j] == 0) {
                     if (draps > 0) {
                     draps -= 1;
-                    matriceDraps[i][j] = 1;      
+                    matriceDraps[i][j] = 1;   
+                    //document.getElementById("buttonhide").style.background = rgb(4, 4, 108); MARCHE PAS
+                     
                     }
                 }
                     
@@ -469,8 +473,4 @@ function ChangeBack(){
     }
     document.body.style.backgroundSize="cover";
 }
-
-
-
-
 
