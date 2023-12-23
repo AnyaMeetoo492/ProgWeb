@@ -88,7 +88,7 @@ function afficheTab(table){
 // donne la taille du tableau et le nombre de drapeau
 function modeChoisi(){
     let mode = document.getElementById("mode").value;
-
+    console.log(mode)
     if (mode == "Easy"){
         taille = 5;
         nbbombe = 2;

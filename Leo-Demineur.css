@@ -97,4 +97,27 @@ nav {
   font-size: 80%;
   font-weight: bold;
   padding: 0 3px;
-} */
+} 
+nav ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+}
+
+nav li {
+  margin: 0 10px; /* Marge entre les éléments de la liste
+}
+
+nav a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+nav a:hover {
+  background-color: #ddd;
+  color: black;
+}*/
