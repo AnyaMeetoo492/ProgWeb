@@ -96,7 +96,7 @@ function modeChoisi(){
         nbbombe = 40;
         draps = 40;
     }
-    else {
+    else if (mode == "Hard") {
         taille = 20;
         nbbombe = 99;
         draps = 99;

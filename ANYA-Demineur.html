@@ -13,6 +13,7 @@
 
         <label for="mode">Choisissez le mode:</label>
         <select name="mode" id="mode">
+            <option value="">--Sélectionner--</option>
             <option id="Easy" value="Easy">Easy</option>
             <option id="Medium" value="Medium">Medium</option>
             <option id="Hard" value="Hard">Hard</option>
@@ -20,7 +21,6 @@
     
         <button type="button" id="Startbutton" onclick="modeChoisi(); ChangeBack(); initTable(); ResetDecompte()">Start</button>
 
-        <!-- <h2 id="nbdrapeau">Drapeaux restant: 0</h2> -->
     
     <div>
         Temps restant : <span id="timer"></span>
@@ -31,7 +31,9 @@
     <br>
     <table border="1" id="tableNonCache">
     </table>
-    <input type="button" value="Cliquez bande de tortipousses" onmouseup="gestion_cliques(event)"/>
+    
+    
+    <!-- <input type="button" value="Cliquez bande de tortipousses" onmouseup="gestion_cliques(event)"/> -->
 
 </body>
 
