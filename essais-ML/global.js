@@ -5,6 +5,7 @@ let matriceBombesChiffres = []; // matrice contenant les bombes et les chiffres 
 let matriceHistorique = []; // matrice qui sauvegarde les cases cliquees du user
 let matriceBombes = []; // matrice des positions des bombes
 let table = []; // table affichee en HTML
+let matriceDraps = [];
 
 // NOTE
 // Bombes represente avec -1
@@ -33,7 +34,7 @@ function afficheTab(table){
                     bouton.setAttribute("name", "button");
                     bouton.setAttribute("id", "buttonhide");
                     bouton.onclick = function() {jeu(1, i2 ,j2)};
-                    bouton.innerText = matriceBombesChiffres[i][j];
+                    bouton.onmouseup= function() {gestion_cliques(event, 1, i2 ,j2, bouton)}
                     Cell.appendChild(bouton); 
                 }
                 else { // si c'est un chiffre
@@ -42,6 +43,7 @@ function afficheTab(table){
                 bouton.setAttribute("name", "button");
                 bouton.setAttribute("id", "buttonhide");
                 bouton.onclick = function () {jeu(0, i2 ,j2)};
+                bouton.onmouseup= function() {gestion_cliques(event, 0, i2 ,j2, bouton)}
                 Cell.appendChild(bouton); 
                 }
             }
@@ -59,7 +61,6 @@ function afficheTab(table){
                     bouton.setAttribute("type", "button");
                     bouton.setAttribute("name", "button");
                     bouton.setAttribute("id", "buttonbombe");
-                    bouton.innerText = matriceBombesChiffres[i][j];
                     Cell.appendChild(bouton); 
                 }
                 else { // si c'est un chiffre
@@ -81,30 +82,6 @@ function afficheTab(table){
     }  
 }
 
-// Initialise le mode = easy/medium/hard 
-// donne la taille du tableau et le nombre de drapeau
-function modeChoisi(){
-    let mode = document.getElementById("mode").value;
-
-    if (mode == "Easy"){
-        taille = 5;
-        nbbombe = 2;
-        draps = 2;
-    }
-    else if (mode == "Medium"){
-        taille = 14;
-        nbbombe = 40;
-        draps = 40;
-    }
-    else {
-        taille = 20;
-        nbbombe = 99;
-        draps = 99;
-    }
-    return (taille,nbbombe, draps);
-
-}
-
 // Initialise une matriceBombesChiffres avec bombes et chiffres et la renvoit 
 // Modifie le tableau pour le début de partie
 function initTable(){
@@ -113,6 +90,7 @@ function initTable(){
     matriceBombesChiffres = [];
     matriceBombes = [];
     matriceHistorique = [];
+    matriceDraps = [];
 
     // remplit la matriceBombesChiffres de zeros
     for (let l=0; l<taille; l++){
@@ -140,6 +118,15 @@ function initTable(){
         }
         matriceHistorique.push(arrayvide);
     }
+
+         // remplit la matriceDraps de 0
+         for (let l=0; l<taille; l++){
+            let arrayvide = [];
+            for (let c=0; c<taille; c++){
+                arrayvide.push(0);
+            }
+            matriceDraps.push(arrayvide);
+        }
 
     // les bombes dans la matriceBombesChiffres a des positions randoms et on copie les positions dans matriceBombes
     while (nbbombe>0){
@@ -216,6 +203,11 @@ function afficheZeros(matrice, i, j) {
         const {i, j} = current;
         for (let ligne = -1; ligne < 2; ligne++) {
             for (let colonne = -1; colonne< 2; colonne++) {
+                //enleve les drapeaux posés sur les cases zéros
+                if (matriceDraps[i][j] == 1) {
+                    draps += 1;
+                    matriceDraps[i][j] = 0;
+                }
                 //si on atteint les bords
                 if (i + ligne < 0 || j + colonne < 0) {
                     continue;
@@ -242,51 +234,6 @@ function afficheZeros(matrice, i, j) {
         matriceHistorique[visit.i][visit.j] = 0; // met les cases de visited dans la matrice historique à zero
     };
 }
-
-//     directions = 0;
-//     i_zeros = i; // ligne
-//     j_zeros = j; // colonne
-//     while (directions < 8) {
-//         while (i_zeros >= 0 && i_zeros < taille && j_zeros >= 0 && j_zeros < taille) { // tant qu'on est sur un zero
-//             matriceHistorique[i_zeros][j_zeros] = 0;
-//             i_zeros = i; // ligne
-//             j_zeros = j; // colonne
-//             console.log(matriceHistorique);
-//             if (directions == 0) { // on va a gauche
-//                 j_zeros = j_zeros - 1;
-//             }
-//             if (directions == 1) { // on va a droite
-//                 j_zeros = j_zeros + 1;
-//             }
-//             if (directions == 2) { // on va en haut
-//                 i_zeros = i_zeros - 1;
-//             }
-//             if (directions == 3) { // on va en bas
-//                 i_zeros = i_zeros + 1;
-//             }
-
-//             if (directions == 4) { // on va en haut à gauche
-//                 i_zeros = i_zeros - 1;
-//                 j_zeros = j_zeros - 1;
-//             }
-
-//             if (directions == 5) { // on va en haut à droite
-//                 i_zeros = i_zeros - 1;
-//                 j_zeros = j_zeros + 1;
-//             }
-
-//             if (directions == 6) { // on va en bas à gauche
-//                 i_zeros = i_zeros + 1;
-//                 j_zeros = j_zeros - 1;
-//             }
-
-//             if (directions == 7) { // on va en bas à droite
-//                 i_zeros = i_zeros + 1;
-//                 j_zeros = j_zeros + 1;
-//             }
-//         }
-//         directions++; // change de direction
-//     }
 
 // Comparaison entre 2 matrices
 function matrice_egale(matA,matB){
@@ -315,6 +262,11 @@ function gestion_cliques(event,fin,i,j){
         switch (event.which) {
             case 1: //Clique gauche
                 boubaloo = "G";
+                //enleve les drapeaux posés sur les cases zéros
+                if (matriceDraps[i][j] == 1) {
+                    draps += 1;
+                    matriceDraps[i][j] = 0;
+                }
                 jeu(fin,i,j); 
                 break;
             case 2: //clique milieu
@@ -322,12 +274,25 @@ function gestion_cliques(event,fin,i,j){
                 break;
             case 3: //clique droit
                 boubaloo = "D";
-                if (draps != 0) {
-                    draps -= 1;
+                
+                if (matriceDraps[i][j] == 1) {
+                    draps += 1;
+                    matriceDraps[i][j] = 0;
+                    //document.getElementById("buttonhide").style.background = rgb(255, 4, 108); MARCHE PAS
+                    
                 }
+                else if (matriceDraps[i][j] == 0) {
+                    if (draps > 0) {
+                    draps -= 1;
+                    matriceDraps[i][j] = 1;   
+                    //document.getElementById("buttonhide").style.background = rgb(4, 4, 108); MARCHE PAS
+                     
+                    }
+                }
+                    
                 break;
-        }
-}
+         }
+    }
 
 //alert(boubaloo);
 afficheTab(table);
@@ -338,8 +303,8 @@ return(draps, compteurbombe);
 
 // Si le user a perdu le jeu, montre le score et reset le jeu
 function perdu(){
-    console.log("OVER");
     popup("Perdu");
+    console.log("OVER");
     modeChoisi();
     ChangeBack();
     initTable(); // reset la grille et l'affiche
@@ -360,16 +325,6 @@ function gagne(){
 // fini le jeu si on trouve toutes les bombes ou user a clique sur une bombe
 function jeu(GameOver,i,j){
     if (GameOver){ // si user clique sur une bombe
-        let a;
-        let b;
-        for(a=0;a<matriceBombes.length;a++){
-            for(b=0;b<matriceBombes.length;b++){
-                matriceHistorique[a][b]=matriceHistorique[a][b]-matriceBombes[a][b];
-            }
-        }
-        console.log(matriceBombes);
-        console.log(matriceHistorique);
-        afficheTab(table);
         perdu();
     }
     else { // si c'est un chiffre
@@ -381,69 +336,4 @@ function jeu(GameOver,i,j){
         }
     }
     afficheTab(table); // affiche le tableau updated
-}
-
-//TIMER DU JEU
-let decompte; 
-function decompteur(){
-    let temps;
-    let mode = document.getElementById("mode").value; //récupération du mode sur la page
-    //différents temps selon le mode choisi
-    if (mode == "Easy"){
-        temps = 120 ;
-    }
-    else if (mode == "Medium"){
-        temps = 420;
-    }
-    else {
-        temps = 900;
-    }
-    const timerElement = document.getElementById("timer"); //timer affiché sur la page
-    function Red_Temps(){ 
-        let m = parseInt(temps / 60, 10); //définit les minutes
-        let s = parseInt(temps % 60, 10); //définit les secondes
-        //pour l'affichage avec 00:00
-        if (m<10){ 
-            m = "0" + m;
-        }
-        if (s<10){
-            s = "0" + s;
-        }
-        timerElement.innerText = m + ":" + s;
-        if (temps<=0){
-            temps = 0;
-        }
-        else{
-            temps--;
-        }
-        // arrêter le jeu quand le decompte est terminé
-        if (m==0 && s==0){
-            jeu(1,0,0);
-        }
-    }
-    decompte = setInterval(Red_Temps,1000);//1000 c'est 1s, effectue Red_temps les 1s
-}
-function ResetDecompte(){
-    //function qui permet de remettre le compteur à 0 quand partie terminée/changement de mode
-    clearInterval(decompte);
-    decompteur();
-}
-
-//IMAGE DE FOND
-function ChangeBack(){
-    // fonction qui permet de changer l'image de fond du jeu selon le mode
-    let mode = document.getElementById("mode").value; //récupération du mode
-    if (mode == "Easy"){
-        document.body.style.backgroundImage= 'url(easy.jpg)';
-        document.body.style.color = 'black';
-    }
-    else if (mode == "Medium"){
-        document.body.style.backgroundImage= 'url(medium.jpg)';
-        document.body.style.color = 'white';
-    }
-    else {
-        document.body.style.backgroundImage= 'url(hell.jpg)';
-        document.body.style.color = 'white';
-    }
-    document.body.style.backgroundSize="cover";
 }
