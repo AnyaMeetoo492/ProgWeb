@@ -46,6 +46,16 @@ function afficheTab(table) {
                     bouton.onmouseup = function () { gestion_cliques(event, 0, i2, j2, bouton) }
                     Cell.appendChild(bouton);
                 }
+
+                if (matriceDraps[i][j] == 1){                   //Doit-on afficher un drapeau sur la matrice
+                    bouton.setAttribute("id", "buttondraps");
+                    Cell.appendChild(bouton);
+                }
+    
+                else {
+                    bouton.setAttribute("id", "buttonhide");    //Doit-on enlever un drapeau de la matrice
+                    Cell.appendChild(bouton);
+                }
             }
             else { // si la case a deja ete cliquee
                 if (matriceBombesChiffres[i][j] == 0) { // si c'est un 0
@@ -68,6 +78,8 @@ function afficheTab(table) {
                 }
 
             }
+
+
             // on ecrit la ligne case par case
             Ligne.appendChild(Cell);
 
@@ -279,7 +291,7 @@ function popup(texte) {
     alert(texte);
 }
 
-function gestion_cliques(event, fin, i, j) {
+function gestion_cliques(event, fin, i, j, bouton) {
     var boubaloo;
 
     if (event.which) {
@@ -302,6 +314,7 @@ function gestion_cliques(event, fin, i, j) {
                 if (matriceDraps[i][j] == 1) {
                     draps += 1;
                     matriceDraps[i][j] = 0;
+
                     //document.getElementById("buttonhide").style.background = rgb(255, 4, 108); MARCHE PAS
 
                 }
