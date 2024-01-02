@@ -1,0 +1,41 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <title>Demineur</title>
+    <link rel="stylesheet" href="Demineur.css">
+    <script type="text/javascript" src="Demineur.js"></script>
+</head>
+
+<body oncontextmenu="return false"> <!--fonction permet de retirer le menu contextuel (click droit)-->
+
+    <h1>Demineur</h1>
+
+    <label for="mode">Choisissez le mode:</label>
+    <select name="mode" id="mode">
+        <option value="">--Sélectionner--</option>
+        <option id="Easy" value="Easy">Easy</option>
+        <option id="Medium" value="Medium">Medium</option>
+        <option id="Hard" value="Hard">Hard</option>
+    </select>
+
+    <button type="button" id="Startbutton"
+        onclick="modeChoisi(); ChangeBack(); initTable(); ResetDecompte()">Start</button>
+
+
+    <div>
+        Temps restant : <span id="timer"></span>
+    </div>
+    <div>
+        🚩 : <label id="countdrapeau">
+            <script>gestion_cliques(event)</script>
+        </label>
+    </div>
+    <br>
+    <table border="1" id="tableNonCache">
+    </table>
+
+
+</body>
+
+</html>
