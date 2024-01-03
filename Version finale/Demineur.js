@@ -36,7 +36,6 @@ function afficheTab(table) {
                     bouton.setAttribute("id", "buttonhide");
                     bouton.onclick = function () { jeu(1, i2, j2) };
                     bouton.onmouseup = function () { gestion_cliques(event, 1, i2, j2, bouton) }
-                    bouton.innerText = matriceBombesChiffres[i][j];
                     Cell.appendChild(bouton);
                 }
                 else { // si c'est un chiffre
@@ -87,35 +86,6 @@ function afficheTab(table) {
         // on ecrit le tableau ligne par ligne
         table.appendChild(Ligne);
     }
-}
-
-// Initialise le mode = easy/medium/hard 
-// donne la taille du tableau et le nombre de drapeau
-function modeChoisi() {
-    let mode = document.getElementById("mode").value;
-    console.log(mode)
-    if (mode == "Easy") {
-        taille = 5;
-        nbbombe = 2;
-        draps = 2;
-    }
-    else if (mode == "Medium") {
-        taille = 14;
-        nbbombe = 40;
-        draps = 40;
-    }
-    else if (mode == "Hard") {
-        taille = 20;
-        nbbombe = 99;
-        draps = 99;
-    }
-    else {
-        taille = 0;
-        nbbombe = 0;
-        draps = 0;
-    }
-    return (taille, nbbombe, draps);
-
 }
 
 // Initialise une matriceBombesChiffres avec bombes et chiffres et la renvoit 
@@ -186,37 +156,37 @@ function initTable() {
 }
 
 // Compte les nombres de bombes autour d'une case et update la matriceBombesChiffres
-function Chiffres(matriceBombesChiffres, maxLigne, maxColonne) {
-    for (let i = 0; i < maxLigne; i++) { //maxLigne est le num de la dernière ligne 
-        for (let j = 0; j < maxColonne; j++) { //maxColonne est le num de la dernière colonne
-            if (matriceBombesChiffres[i][j] == -1) { // si on est sur une bombe
+function Chiffres(matriceBombesChiffres, maxLigne, maxColonne){
+    for(let i = 0; i < maxLigne; i++){ //maxLigne est le num de la dernière ligne 
+        for(let j = 0; j < maxColonne; j++){ //maxColonne est le num de la dernière colonne
+            if(matriceBombesChiffres[i][j] == -1){ // si on est sur une bombe
                 let Ideb = i; // ligne debut
                 let Ifin = i; // ligne fin
                 let Jdeb = j; // colonne debut
                 let Jfin = j; // colonne fin
 
                 // LIGNE DEBUT
-                if (i - 1 >= 0) { // si on est pas sur le bord haut
-                    Ideb = i - 1;
+                if (i-1 >= 0){ // si on est pas sur le bord haut
+                    Ideb = i - 1; 
                 }
                 // LIGNE FIN
-                if (i + 1 < maxLigne) { // si on est pas sur le bord bas
-                    Ifin = i + 1;
+                if (i+1 < maxLigne){ // si on est pas sur le bord bas
+                    Ifin = i + 1; 
                 }
 
                 // COLONNE DEBUT
-                if (j - 1 >= 0) { // si on est pas sur le bord gauche
+                if (j-1 >= 0){ // si on est pas sur le bord gauche
                     Jdeb = j - 1;
                 }
                 // COLONNE FIN
-                if (j + 1 < maxColonne) { // si on est pas sur le bord droit
+                if (j+1 < maxColonne){ // si on est pas sur le bord droit
                     Jfin = j + 1;
                 }
-
+                
                 // On ajoute des 1 sur les cases au voisinage de la bombe
-                for (let l = Ideb; l <= Ifin; l++) {
-                    for (let c = Jdeb; c <= Jfin; c++) {
-                        if (matriceBombesChiffres[l][c] != -1 && matriceBombesChiffres[l][c] < 9) { // si on n'est pas sur la case bombe
+                for(let l = Ideb; l<=Ifin ; l++){
+                    for(let c = Jdeb; c<=Jfin; c++){
+                        if(matriceBombesChiffres[l][c]!=-1 && matriceBombesChiffres[l][c]<9){ // si on n'est pas sur la case bombe
                             matriceBombesChiffres[l][c] = matriceBombesChiffres[l][c] + 1; // rajout un 1
                         }
                     }
@@ -228,17 +198,17 @@ function Chiffres(matriceBombesChiffres, maxLigne, maxColonne) {
 
 // Affiche tous les zeros au voisinage de la case zero clique
 function afficheZeros(matrice, i, j) {
-    const stack = [{ i, j }]; //initialisation d'une pile contenant les lignes et colonnes
-    if (matrice[i][j] != 0) { // si la cellule est différente de zéro alors on ne fait pas la fonction
+    const stack = [{i, j}]; //initialisation d'une pile contenant les lignes et colonnes
+    if(matrice[i][j] !=0){ // si la cellule est différente de zéro alors on ne fait pas la fonction
         return;
     }
     const visited = []; //matrice contenant les cases à zéro
     while (stack.length > 0) {
         const current = stack.pop(); //supprime le dernier élément de la pile et le retourne dans current
         visited.push(current); //ajoute current à la fin de visited
-        const { i, j } = current;
+        const {i, j} = current;
         for (let ligne = -1; ligne < 2; ligne++) {
-            for (let colonne = -1; colonne < 2; colonne++) {
+            for (let colonne = -1; colonne< 2; colonne++) {
                 //enleve les drapeaux posés sur les cases zéros
                 if (matriceDraps[i][j] == 1) {
                     draps += 1;
@@ -248,7 +218,7 @@ function afficheZeros(matrice, i, j) {
                 if (i + ligne < 0 || j + colonne < 0) {
                     continue;
                 }
-                if (i + ligne >= matrice.length || j + colonne >= matrice.length) {
+                if (i + ligne >= matrice.length || j + colonne >= matrice.length) { 
                     continue;
                 }
                 // si la cellule suivante est différente de zéro alors on continue
@@ -256,30 +226,30 @@ function afficheZeros(matrice, i, j) {
                     continue;
                 }
                 //teste si au moins un élément de visited a pour ligne la ligne suivante ou pour colonne la colonne suivante
-                if (visited.some((v) => v.i == i + ligne && v.j == j + colonne)) {
+                if (visited.some((v) => v.i == i + ligne && v.j == j + colonne)) { 
                     continue;
                 }
                 stack.push({ //ajoute les lignes i+1 et j+1 à la fin de la pile
-                    i: i + ligne,
-                    j: j + colonne
+                    i : i + ligne,
+                    j : j + colonne
                 });
             }
         }
     }
-    for (visit of visited) {
+    for (visit of visited){
         matriceHistorique[visit.i][visit.j] = 0; // met les cases de visited dans la matrice historique à zero
     };
 }
 
 // Comparaison entre 2 matrices
-function matrice_egale(matA, matB) {
-    let i = 0;
-    let j = 0;
-    let res = 1;
-    for (i = 0; i < matA.length; i++) { // chaque ligne 
-        for (j = 0; j < matA[i].length; j++) { //chaque colonne
-            if (matA[i][j] != matB[i][j]) { // si les cases sont différentes
-                res = 0;
+function matrice_egale(matA,matB){
+    let i=0;
+    let j=0;
+    let res=1;
+    for (i=0;i<matA.length;i++){ // chaque ligne 
+        for (j=0;j<matA[i].length;j++){ //chaque colonne
+            if (matA[i][j]!=matB[i][j]){ // si les cases sont différentes
+                res=0;
             }
         }
     }
@@ -292,7 +262,7 @@ function popup(texte) {
 }
 
 function gestion_cliques(event, fin, i, j, bouton) {
-    var boubaloo;
+    let boubaloo;
 
     if (event.which) {
         switch (event.which) {
@@ -331,15 +301,15 @@ function gestion_cliques(event, fin, i, j, bouton) {
         }
     }
 
-    //alert(boubaloo);
-    afficheTab(table);
-    document.getElementById("countdrapeau").innerHTML = draps;
-    return (draps, compteurbombe);
+//alert(boubaloo);
+afficheTab(table);
+document.getElementById("countdrapeau").innerHTML = draps;
+return(draps, compteurbombe);
 }
 
 
 // Si le user a perdu le jeu, montre le score et reset le jeu
-function perdu() {
+function perdu(){
     popup("Perdu");
     console.log("OVER");
     modeChoisi();
@@ -349,7 +319,7 @@ function perdu() {
 }
 
 // Si le user a gagne, montre le score et reset le jeu
-function gagne() {
+function gagne(){
     popup("Victoire");
     console.log("Victoire");
     modeChoisi();
@@ -360,89 +330,17 @@ function gagne() {
 
 // Lance le jeu
 // fini le jeu si on trouve toutes les bombes ou user a clique sur une bombe
-function jeu(GameOver, i, j) {
-    if (GameOver) { // si user clique sur une bombe
+function jeu(GameOver,i,j){
+    if (GameOver){ // si user clique sur une bombe
         perdu();
     }
     else { // si c'est un chiffre
         matriceHistorique[i][j] = 0; // update la matrice de cliques, on a clique sur la case
-        afficheZeros(matriceBombesChiffres, i, j);
+        afficheZeros(matriceBombesChiffres,i,j);
         // afficheZeros(matriceHistorique,i,j);
-        if (matrice_egale(matriceHistorique, matriceBombes)) { // si on a clique sur toutes les cases sauf les bombes, on a gagne
+        if (matrice_egale(matriceHistorique,matriceBombes)){ // si on a clique sur toutes les cases sauf les bombes, on a gagne
             gagne();
         }
     }
     afficheTab(table); // affiche le tableau updated
 }
-
-//TIMER DU JEU
-let decompte;
-function decompteur() {
-    let temps = 0;
-    let mode = document.getElementById("mode").value; //récupération du mode sur la page
-
-    //différents temps selon le mode choisi
-    if (mode == "Easy") {
-        temps = 120;
-    }
-    else if (mode == "Medium") {
-        temps = 420;
-    }
-    else if (mode == "Hard") {
-        temps = 900;
-    }
-    const timerElement = document.getElementById("timer"); //timer affiché sur la page
-    function Red_Temps() {
-        let m = parseInt(temps / 60, 10); //définit les minutes
-        let s = parseInt(temps % 60, 10); //définit les secondes
-        //pour l'affichage avec 00:00
-        if (m < 10) {
-            m = "0" + m;
-        }
-        if (s < 10) {
-            s = "0" + s;
-        }
-        timerElement.innerText = m + ":" + s;
-        if (temps <= 0) {
-            temps = 0;
-        }
-        else {
-            temps--;
-        }
-        // arrêter le jeu quand le decompte est terminé
-        if (m == 0 && s == 0 && mode != "") {
-            jeu(1, 0, 0);
-        }
-    }
-    decompte = setInterval(Red_Temps, 1000);//1000 c'est 1s, effectue Red_temps les 1s
-}
-
-function ResetDecompte() {
-    //function qui permet de remettre le compteur à 0 quand partie terminée/changement de mode
-    clearInterval(decompte);
-    decompteur();
-}
-
-//IMAGE DE FOND
-function ChangeBack() {
-    // fonction qui permet de changer l'image de fond du jeu selon le mode
-    let mode = document.getElementById("mode").value; //récupération du mode
-    if (mode == "Easy") {
-        document.body.style.backgroundImage = 'url("images/easy.jpg")';
-        document.body.style.color = 'black';
-    }
-    else if (mode == "Medium") {
-        document.body.style.backgroundImage = 'url("images/medium.jpg")';
-        document.body.style.color = 'white';
-    }
-    else if (mode == "Hard") {
-        document.body.style.backgroundImage = 'url("images/hell.jpg")';
-        document.body.style.color = 'white';
-    }
-    else {
-        document.body.style.backgroundImage = 'url("images/Demineur2.jpg")';
-        document.body.style.color = 'white';
-    }
-    document.body.style.backgroundSize = "cover";
-}
-
