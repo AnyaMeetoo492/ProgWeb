@@ -60,7 +60,7 @@ function afficheTab(table) {
                 if (matriceBombesChiffres[i][j] == 0) { // si c'est un 0
 
                     bouton.setAttribute("id", "buttonrien");
-                    bouton.innerText = matriceBombesChiffres[i][j];
+                    //bouton.innerText = matriceBombesChiffres[i][j];
                     Cell.appendChild(bouton);
                 }
                 else if (matriceBombesChiffres[i][j] == representBombe) { // si c'est une bombe
