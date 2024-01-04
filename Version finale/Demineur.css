@@ -130,10 +130,6 @@ table {
 #buttonbombe {
   width: 50px;
   height: 50px;
-  background-image: url('images/explosion.jpg');
-  background-size: cover;
-  background-position: center center;
-  background-repeat: no-repeat;
 }
 
 #buttonchiffre {
