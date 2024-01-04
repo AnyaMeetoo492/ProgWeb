@@ -1,15 +1,11 @@
-# ProgWeb
+# Programmation Web
+Projet 2 - Web application
+Marie-Line Da Costa Bento, Léo Dalquier, Saad Zeghari, Anya Meetoo
 
 Cahier des charges
 
-Projet 2 
-Marie-Line Da Costa Bento, Léo Dalquier, Saad Zeghari, Anya Meetoo
-
-Au moins une page HTML + JS
-On fait une web application
-
 REQUIRE:
-
+Il nous faut au moins une page HTML et une page JS.
 1. String object
 2. Functions
 3. Conditional Statements 
@@ -21,59 +17,24 @@ REQUIRE:
     - addition of HTML elements
     - remove of HTML elements
     - Update of HTML elements (changing the content or changing the style)
-
 The web application should be hosted online. There are several online services that propose free hosting.
 
+Notre idée : Le démineur 
 
-
-Idée : Démineur 
-
-Nécessité :
-
-- Table nxn => couvert => découvert sur appui
-- bombes / chiffres / vides / drapeau 
-- nb de drapeaux 
-- temps 
-- changement de niveaux
-- animations 
-- sons 
+REQUIRE :
+- Une matrice recouverte qui se découvre sur appui
+- Des cases de différents types : bombes / chiffres / vides / drapeau 
+- Affichage d'un nombre de drapeaux et positionnement de drapeaux sur les cases
+- Affichage du temps (décompteur) 
+- Changement de niveaux possibles (plateauxplus ou moins grand)
+- Présence de quelques animations pour la victoire/défaite
+- Sons? Leaderborard? (facultatif)
 
 Déroulement :
-
-- Tableau caché
-- user clique n'importe où => tableau de mines crée
-- user met drapeau ou pas (click gauche = mettre, clique droit = retirer)
-    - si user sur bombe = fin partie
-    - si user pas bombe = revele chiffre 
-        - si chiffre 0 = libere cases vides autour  
-
-- fin de partie = revele toutes les bombes et le nb de drapeaux restants
-
-- facultatif 
-    - Leaderboard
-    - click sur chiffre = casse un bout 
-
-Taches :
-
-- Matrice bombes / chiffre(chiffre)
-    - case valeur 
-        -1 bombes
-        chiffres representant bombes à côté
-        vides
-- css sur chaque case 
-    - cache case tant que pas cliquer
-- drapeau (indicateur)
-
-
-mission 1
-
-1. matrice random
-4. fonction chiffres
-2. tableau css, js
-3. Compteur de drapeau + affichage drapeau + click gauche
-
-mission 2
-1. Matrice qui cache
-2. Game Over - animation Game Over? 
-3. décor
-4. 
+- La matriche contennant les chiffres et les bombes est caché
+- L'utilisateur clique n'importe où : le tableau de mines est créé.
+- L'utilisateur peut placer un drapeau avec son clic droit.
+    - s'il clique gauche sur une bombe, c'est la fin de la partie
+    - s'il clique gauche sur un chiffre, cela le révèle.
+        - si le chiffre est 0, cela libere les cases vides autour  
+- En fin de partie, on revele toutes les bombes et le nb de drapeaux restants
