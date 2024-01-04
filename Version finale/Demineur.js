@@ -5,10 +5,10 @@ let matriceBombesChiffres = []; // matrice contenant les bombes et les chiffres 
 let matriceHistorique = []; // matrice qui sauvegarde les cases cliquees du user
 let matriceBombes = []; // matrice des positions des bombes
 let table = []; // table affichee en HTML
-let matriceDraps = [];
+let matriceDraps = []; // matrice des positions des drapeaux places
 
 // NOTE
-// Bombes represente avec -1
+let representBombe = -1
 
 
 //affiche le tableau a l'ecran
@@ -31,8 +31,8 @@ function afficheTab(table) {
             bouton.setAttribute("name", "button");
 
             // ajoute l'élement nécéssaire à chaque cellule du tableau
-            if (matriceHistorique[i][j] == -1) { // si la case n'a pas ete cliquee
-                if (matriceBombesChiffres[i][j] == -1) { // si c'est une bombe 
+            if (matriceHistorique[i][j] == representBombe) { // si la case n'a pas ete cliquee
+                if (matriceBombesChiffres[i][j] == representBombe) { // si c'est une bombe 
                     bouton.setAttribute("id", "buttonhide");
                     bouton.onclick = function () { jeu(1, i2, j2) };
                     bouton.onmouseup = function () { gestion_cliques(event, 1, i2, j2, bouton) }
@@ -63,7 +63,7 @@ function afficheTab(table) {
                     bouton.innerText = matriceBombesChiffres[i][j];
                     Cell.appendChild(bouton);
                 }
-                else if (matriceBombesChiffres[i][j] == -1) { // si c'est une bombe
+                else if (matriceBombesChiffres[i][j] == representBombe) { // si c'est une bombe
 
                     bouton.setAttribute("id", "buttonbombe");
                     bouton.innerText = matriceBombesChiffres[i][j];
@@ -141,8 +141,8 @@ function initTable() {
         let randomcolonne = Math.floor(Math.random() * taille); // colonne random
 
         if (matriceBombesChiffres[randomligne][randomcolonne] == 0) { // si pas de bommbe déjà, mettre une bombe
-            matriceBombes[randomligne][randomcolonne] = -1;
-            matriceBombesChiffres[randomligne][randomcolonne] = -1;
+            matriceBombes[randomligne][randomcolonne] = representBombe;
+            matriceBombesChiffres[randomligne][randomcolonne] = representBombe;
             nbbombe--;
         }
 
@@ -159,7 +159,7 @@ function initTable() {
 function Chiffres(matriceBombesChiffres, maxLigne, maxColonne) {
     for (let i = 0; i < maxLigne; i++) { //maxLigne est le num de la dernière ligne 
         for (let j = 0; j < maxColonne; j++) { //maxColonne est le num de la dernière colonne
-            if (matriceBombesChiffres[i][j] == -1) { // si on est sur une bombe
+            if (matriceBombesChiffres[i][j] == representBombe) { // si on est sur une bombe
                 let Ideb = i; // ligne debut
                 let Ifin = i; // ligne fin
                 let Jdeb = j; // colonne debut
@@ -186,7 +186,7 @@ function Chiffres(matriceBombesChiffres, maxLigne, maxColonne) {
                 // On ajoute des 1 sur les cases au voisinage de la bombe
                 for (let l = Ideb; l <= Ifin; l++) {
                     for (let c = Jdeb; c <= Jfin; c++) {
-                        if (matriceBombesChiffres[l][c] != -1 && matriceBombesChiffres[l][c] < 9) { // si on n'est pas sur la case bombe
+                        if (matriceBombesChiffres[l][c] != representBombe && matriceBombesChiffres[l][c] < 9) { // si on n'est pas sur la case bombe
                             matriceBombesChiffres[l][c] = matriceBombesChiffres[l][c] + 1; // rajout un 1
                         }
                     }
@@ -256,11 +256,6 @@ function matrice_egale(matA, matB) {
     return res;
 }
 
-// Faire un popup avec le text donne
-function popup(texte) {
-    alert(texte);
-}
-
 function gestion_cliques(event, fin, i, j, bouton) {
     let boubaloo;
 
@@ -307,39 +302,71 @@ function gestion_cliques(event, fin, i, j, bouton) {
     return (draps, compteurbombe);
 }
 
+function affichageFin(message){
+    clearInterval(decompte); // arrete le decompteur
+    for (i=0; i<taille; i++){
+        for (j=0; j<taille; j++){
+            matriceHistorique[i][j] = 0; // toutes les cases doivent être affichees
+            if (matriceBombesChiffres[i][j] == representBombe){ // on dessine une bombe pour l'affichage
+                representBombe = "💣";
+                matriceBombesChiffres[i][j] = representBombe;
+                representBombe = -1;
+            };
+        }
+    }
+    representBombe = "💣";
+    afficheTab(table); // on affiche le tableau de fin 
+    representBombe = -1;
+    
+    document.getElementById("MessageFin").innerHTML = message; // Message soit le joueur a gagne ou perdu
+}
 
-// Si le user a perdu le jeu, montre le score et reset le jeu
-function perdu() {
-    popup("Perdu");
-    console.log("OVER");
+function resetGame(){
+    document.getElementById("MessageFin").innerHTML = "JOUER";
     modeChoisi();
     ChangeBack();
     initTable(); // reset la grille et l'affiche
     ResetDecompte();
 }
 
-// Si le user a gagne, montre le score et reset le jeu
-function gagne() {
-    popup("Victoire");
-    console.log("Victoire");
-    modeChoisi();
-    ChangeBack();
-    initTable(); // reset la grille et l'affiche
-    ResetDecompte();
-}
+// Faire un popup avec le text donne
+// function popup(texte) {
+//     alert(texte);
+// }
+
+// // Si le user a perdu le jeu, montre le score et reset le jeu
+// function perdu() {
+//     //popup("Perdu");
+//     console.log("OVER");
+//     modeChoisi();
+//     ChangeBack();
+//     initTable(); // reset la grille et l'affiche
+//     ResetDecompte();
+// }
+
+// // Si le user a gagne, montre le score et reset le jeu
+// function gagne() {
+//     //popup("Victoire");
+//     console.log("Victoire");
+//     modeChoisi();
+//     ChangeBack();
+//     initTable(); // reset la grille et l'affiche
+//     ResetDecompte();
+// }
 
 // Lance le jeu
 // fini le jeu si on trouve toutes les bombes ou user a clique sur une bombe
 function jeu(GameOver, i, j) {
     if (GameOver) { // si user clique sur une bombe
-        perdu();
+        affichageFin("YOU LOSE!");
+        //perdu();
     }
     else { // si c'est un chiffre
         matriceHistorique[i][j] = 0; // update la matrice de cliques, on a clique sur la case
         afficheZeros(matriceBombesChiffres, i, j);
-        // afficheZeros(matriceHistorique,i,j);
         if (matrice_egale(matriceHistorique, matriceBombes)) { // si on a clique sur toutes les cases sauf les bombes, on a gagne
-            gagne();
+            affichageFin("YOU WIN!");
+            //gagne();
         }
     }
     afficheTab(table); // affiche le tableau updated
