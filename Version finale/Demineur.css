@@ -24,26 +24,26 @@ body {
   min-height: 100vh;
 }
 
-h1{
-  margin : 0;
-  font-family:'Games', sans-serif;
+h1 {
+  margin: 0;
+  font-family: 'Games', sans-serif;
   font-weight: normal;
-  font-size : 5rem;
-  color : white;
+  font-size: 5rem;
+  color: white;
   background-color: rgb(78, 76, 133);
 }
 
-h2{
-  font-family:'Games', sans-serif;
+h2 {
+  font-family: 'Games', sans-serif;
   font-weight: normal;
 }
 
-p{
-  margin :0;
+p {
+  margin: 0;
   font-weight: normal;
 }
 
-#Startbutton{
+#Startbutton {
   width: 20%;
   color: #fff;
   border-radius: 5px;
@@ -56,16 +56,18 @@ p{
   background: linear-gradient(0deg, rgb(132, 129, 233) 0%, rgb(78, 76, 133) 100%);
   border: none;
 }
+
 #Startbutton:before {
-    height: 0%;
-    width: 2px;
+  height: 0%;
+  width: 2px;
 }
+
 #Startbutton:hover {
-    box-shadow:  4px 4px 4px 0 rgba(255,255,255,.5),
-                 4px 4px 4px 0 rgba(116, 125, 136, .5), 
-      inset 4px 4px 4px 0 rgba(255,255,255,.2),
-      inset 4px 4px 4px 0 rgba(0, 0, 0, .4);
-  }
+  box-shadow: 4px 4px 4px 0 rgba(255, 255, 255, .5),
+    4px 4px 4px 0 rgba(116, 125, 136, .5),
+    inset 4px 4px 4px 0 rgba(255, 255, 255, .2),
+    inset 4px 4px 4px 0 rgba(0, 0, 0, .4);
+}
 
 table {
   border-spacing: 0;
@@ -121,8 +123,8 @@ table {
 }
 
 nav {
-  width : 100%;
-  margin : 0px 0px 10px 0px;
+  width: 100%;
+  margin: 0px 0px 10px 0px;
   background-color: rgb(132, 129, 233);
   position: sticky;
   top: 0px;
@@ -139,8 +141,9 @@ nav ul {
 nav li {
   margin: 0 0px;
   float: left;
-  width : 25%;
-  text-align: center;/*Centre le texte dans les éléments de menu*/
+  width: 25%;
+  text-align: center;
+  /*Centre le texte dans les éléments de menu*/
 }
 
 nav a {

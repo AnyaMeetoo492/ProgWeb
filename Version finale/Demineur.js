@@ -26,7 +26,7 @@ function afficheTab(table) {
             const i2 = i;
             const j2 = j;
             let Cell = document.createElement("TD"); // pour chaque case sur la ligne du tableau
-            const bouton = document.createElement("button");
+            const bouton = document.createElement("button"); // creer un button a chaque case
             bouton.setAttribute("type", "button");
             bouton.setAttribute("name", "button");
 
@@ -39,18 +39,18 @@ function afficheTab(table) {
                     Cell.appendChild(bouton);
                 }
                 else { // si c'est un chiffre
-                    
+
                     bouton.setAttribute("id", "buttonhide");
                     bouton.onclick = function () { jeu(0, i2, j2) };
                     bouton.onmouseup = function () { gestion_cliques(event, 0, i2, j2, bouton) }
                     Cell.appendChild(bouton);
                 }
 
-                if (matriceDraps[i][j] == 1){                   //Doit-on afficher un drapeau sur la matrice
+                if (matriceDraps[i][j] == 1) {                   //Doit-on afficher un drapeau sur la matrice
                     bouton.setAttribute("id", "buttondraps");
                     Cell.appendChild(bouton);
                 }
-    
+
                 else {
                     bouton.setAttribute("id", "buttonhide");    //Doit-on enlever un drapeau de la matrice
                     Cell.appendChild(bouton);
@@ -58,19 +58,19 @@ function afficheTab(table) {
             }
             else { // si la case a deja ete cliquee
                 if (matriceBombesChiffres[i][j] == 0) { // si c'est un 0
-                    
+
                     bouton.setAttribute("id", "buttonrien");
                     bouton.innerText = matriceBombesChiffres[i][j];
                     Cell.appendChild(bouton);
                 }
                 else if (matriceBombesChiffres[i][j] == -1) { // si c'est une bombe
-                    
+
                     bouton.setAttribute("id", "buttonbombe");
                     bouton.innerText = matriceBombesChiffres[i][j];
                     Cell.appendChild(bouton);
                 }
                 else { // si c'est un chiffre
-                    
+
                     bouton.setAttribute("id", "buttonchiffre");
                     bouton.innerText = matriceBombesChiffres[i][j];
                     Cell.appendChild(bouton);
@@ -156,37 +156,37 @@ function initTable() {
 }
 
 // Compte les nombres de bombes autour d'une case et update la matriceBombesChiffres
-function Chiffres(matriceBombesChiffres, maxLigne, maxColonne){
-    for(let i = 0; i < maxLigne; i++){ //maxLigne est le num de la dernière ligne 
-        for(let j = 0; j < maxColonne; j++){ //maxColonne est le num de la dernière colonne
-            if(matriceBombesChiffres[i][j] == -1){ // si on est sur une bombe
+function Chiffres(matriceBombesChiffres, maxLigne, maxColonne) {
+    for (let i = 0; i < maxLigne; i++) { //maxLigne est le num de la dernière ligne 
+        for (let j = 0; j < maxColonne; j++) { //maxColonne est le num de la dernière colonne
+            if (matriceBombesChiffres[i][j] == -1) { // si on est sur une bombe
                 let Ideb = i; // ligne debut
                 let Ifin = i; // ligne fin
                 let Jdeb = j; // colonne debut
                 let Jfin = j; // colonne fin
 
                 // LIGNE DEBUT
-                if (i-1 >= 0){ // si on est pas sur le bord haut
-                    Ideb = i - 1; 
+                if (i - 1 >= 0) { // si on est pas sur le bord haut
+                    Ideb = i - 1;
                 }
                 // LIGNE FIN
-                if (i+1 < maxLigne){ // si on est pas sur le bord bas
-                    Ifin = i + 1; 
+                if (i + 1 < maxLigne) { // si on est pas sur le bord bas
+                    Ifin = i + 1;
                 }
 
                 // COLONNE DEBUT
-                if (j-1 >= 0){ // si on est pas sur le bord gauche
+                if (j - 1 >= 0) { // si on est pas sur le bord gauche
                     Jdeb = j - 1;
                 }
                 // COLONNE FIN
-                if (j+1 < maxColonne){ // si on est pas sur le bord droit
+                if (j + 1 < maxColonne) { // si on est pas sur le bord droit
                     Jfin = j + 1;
                 }
-                
+
                 // On ajoute des 1 sur les cases au voisinage de la bombe
-                for(let l = Ideb; l<=Ifin ; l++){
-                    for(let c = Jdeb; c<=Jfin; c++){
-                        if(matriceBombesChiffres[l][c]!=-1 && matriceBombesChiffres[l][c]<9){ // si on n'est pas sur la case bombe
+                for (let l = Ideb; l <= Ifin; l++) {
+                    for (let c = Jdeb; c <= Jfin; c++) {
+                        if (matriceBombesChiffres[l][c] != -1 && matriceBombesChiffres[l][c] < 9) { // si on n'est pas sur la case bombe
                             matriceBombesChiffres[l][c] = matriceBombesChiffres[l][c] + 1; // rajout un 1
                         }
                     }
@@ -198,17 +198,17 @@ function Chiffres(matriceBombesChiffres, maxLigne, maxColonne){
 
 // Affiche tous les zeros au voisinage de la case zero clique
 function afficheZeros(matrice, i, j) {
-    const stack = [{i, j}]; //initialisation d'une pile contenant les lignes et colonnes
-    if(matrice[i][j] !=0){ // si la cellule est différente de zéro alors on ne fait pas la fonction
+    const stack = [{ i, j }]; //initialisation d'une pile contenant les lignes et colonnes
+    if (matrice[i][j] != 0) { // si la cellule est différente de zéro alors on ne fait pas la fonction
         return;
     }
     const visited = []; //matrice contenant les cases à zéro
     while (stack.length > 0) {
         const current = stack.pop(); //supprime le dernier élément de la pile et le retourne dans current
         visited.push(current); //ajoute current à la fin de visited
-        const {i, j} = current;
+        const { i, j } = current;
         for (let ligne = -1; ligne < 2; ligne++) {
-            for (let colonne = -1; colonne< 2; colonne++) {
+            for (let colonne = -1; colonne < 2; colonne++) {
                 //enleve les drapeaux posés sur les cases zéros
                 if (matriceDraps[i][j] == 1) {
                     draps += 1;
@@ -218,7 +218,7 @@ function afficheZeros(matrice, i, j) {
                 if (i + ligne < 0 || j + colonne < 0) {
                     continue;
                 }
-                if (i + ligne >= matrice.length || j + colonne >= matrice.length) { 
+                if (i + ligne >= matrice.length || j + colonne >= matrice.length) {
                     continue;
                 }
                 // si la cellule suivante est différente de zéro alors on continue
@@ -226,30 +226,30 @@ function afficheZeros(matrice, i, j) {
                     continue;
                 }
                 //teste si au moins un élément de visited a pour ligne la ligne suivante ou pour colonne la colonne suivante
-                if (visited.some((v) => v.i == i + ligne && v.j == j + colonne)) { 
+                if (visited.some((v) => v.i == i + ligne && v.j == j + colonne)) {
                     continue;
                 }
                 stack.push({ //ajoute les lignes i+1 et j+1 à la fin de la pile
-                    i : i + ligne,
-                    j : j + colonne
+                    i: i + ligne,
+                    j: j + colonne
                 });
             }
         }
     }
-    for (visit of visited){
+    for (visit of visited) {
         matriceHistorique[visit.i][visit.j] = 0; // met les cases de visited dans la matrice historique à zero
     };
 }
 
 // Comparaison entre 2 matrices
-function matrice_egale(matA,matB){
-    let i=0;
-    let j=0;
-    let res=1;
-    for (i=0;i<matA.length;i++){ // chaque ligne 
-        for (j=0;j<matA[i].length;j++){ //chaque colonne
-            if (matA[i][j]!=matB[i][j]){ // si les cases sont différentes
-                res=0;
+function matrice_egale(matA, matB) {
+    let i = 0;
+    let j = 0;
+    let res = 1;
+    for (i = 0; i < matA.length; i++) { // chaque ligne 
+        for (j = 0; j < matA[i].length; j++) { //chaque colonne
+            if (matA[i][j] != matB[i][j]) { // si les cases sont différentes
+                res = 0;
             }
         }
     }
@@ -301,15 +301,15 @@ function gestion_cliques(event, fin, i, j, bouton) {
         }
     }
 
-//alert(boubaloo);
-afficheTab(table);
-document.getElementById("countdrapeau").innerHTML = draps;
-return(draps, compteurbombe);
+    //alert(boubaloo);
+    afficheTab(table);
+    document.getElementById("countdrapeau").innerHTML = draps;
+    return (draps, compteurbombe);
 }
 
 
 // Si le user a perdu le jeu, montre le score et reset le jeu
-function perdu(){
+function perdu() {
     popup("Perdu");
     console.log("OVER");
     modeChoisi();
@@ -319,7 +319,7 @@ function perdu(){
 }
 
 // Si le user a gagne, montre le score et reset le jeu
-function gagne(){
+function gagne() {
     popup("Victoire");
     console.log("Victoire");
     modeChoisi();
@@ -330,15 +330,15 @@ function gagne(){
 
 // Lance le jeu
 // fini le jeu si on trouve toutes les bombes ou user a clique sur une bombe
-function jeu(GameOver,i,j){
-    if (GameOver){ // si user clique sur une bombe
+function jeu(GameOver, i, j) {
+    if (GameOver) { // si user clique sur une bombe
         perdu();
     }
     else { // si c'est un chiffre
         matriceHistorique[i][j] = 0; // update la matrice de cliques, on a clique sur la case
-        afficheZeros(matriceBombesChiffres,i,j);
+        afficheZeros(matriceBombesChiffres, i, j);
         // afficheZeros(matriceHistorique,i,j);
-        if (matrice_egale(matriceHistorique,matriceBombes)){ // si on a clique sur toutes les cases sauf les bombes, on a gagne
+        if (matrice_egale(matriceHistorique, matriceBombes)) { // si on a clique sur toutes les cases sauf les bombes, on a gagne
             gagne();
         }
     }
