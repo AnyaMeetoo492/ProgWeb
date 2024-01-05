@@ -299,7 +299,7 @@ function gestion_cliques(event, fin, i, j, bouton) {
     //alert(boubaloo);
     afficheTab(table);
     document.getElementById("countdrapeau").innerHTML = draps;
-    return (draps, compteurbombe);
+    return (draps);
 }
 
 function affichageFin(message){
