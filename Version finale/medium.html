@@ -21,7 +21,7 @@
     </nav>
 
     <button type="button" id="Startbutton"
-        onclick="modeChoisi(); ChangeBack(); initTable(); ResetDecompte()">Start</button>
+        onclick="resetGame()">Start/Reset</button>
 
     <div>
         Temps restant : <span id="timer"></span>
@@ -31,10 +31,8 @@
             <script>gestion_cliques(event)</script>
         </label>
     </div>
-    
+
     <div id="MessageFin"> JOUEZ </div>
-    <button id="resetGameButton" onclick="resetGame()">RESET</button>
-    <br>
     <br>
     <table border="1" id="tableNonCache">
     </table>

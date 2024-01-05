@@ -329,31 +329,6 @@ function resetGame(){
     ResetDecompte();
 }
 
-// Faire un popup avec le text donne
-// function popup(texte) {
-//     alert(texte);
-// }
-
-// // Si le user a perdu le jeu, montre le score et reset le jeu
-// function perdu() {
-//     //popup("Perdu");
-//     console.log("OVER");
-//     modeChoisi();
-//     ChangeBack();
-//     initTable(); // reset la grille et l'affiche
-//     ResetDecompte();
-// }
-
-// // Si le user a gagne, montre le score et reset le jeu
-// function gagne() {
-//     //popup("Victoire");
-//     console.log("Victoire");
-//     modeChoisi();
-//     ChangeBack();
-//     initTable(); // reset la grille et l'affiche
-//     ResetDecompte();
-// }
-
 // Lance le jeu
 // fini le jeu si on trouve toutes les bombes ou user a clique sur une bombe
 function jeu(GameOver, i, j) {
